@@ -3,8 +3,7 @@ import FilmCard from '../film-card/film-card';
 import PropTypes from 'prop-types';
 
 function MainPage({films, promo}) {
-  const {title, genre, date} = promo;
-  return(
+  return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
@@ -37,14 +36,14 @@ function MainPage({films, promo}) {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={title} width="218" height="327" />
+              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={promo.title} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{promo.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{date}</span>
+                <span className="film-card__genre">{promo.genre}</span>
+                <span className="film-card__year">{promo.date}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -105,12 +104,12 @@ function MainPage({films, promo}) {
 
           <div className="catalog__films-list">
             {
-              films.map((film) => (
+              films.map(({id, title, image, url}) => (
                 <FilmCard
-                  key={`pc${film.id}`}
-                  title={film.title}
-                  image={film.image}
-                  url={film.url}
+                  key={`pc${id}`}
+                  title={title}
+                  image={image}
+                  url={url}
                 />
               ))
             }

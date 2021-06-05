@@ -2,8 +2,7 @@ import React from 'react';
 import MainPage from '../main-page/main-page';
 import PropTypes from 'prop-types';
 
-function App(props) {
-  const {films, promo} = props;
+function App({films, promo}) {
   return <MainPage films={films} promo={promo} />;
 }
 
