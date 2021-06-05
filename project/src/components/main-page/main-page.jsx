@@ -109,7 +109,7 @@ function MainPage({films, promo}) {
                 <FilmCard
                   key={`pc${film.id}`}
                   title={film.title}
-                  src={film.src}
+                  image={film.image}
                   url={film.url}
                 />
               ))
@@ -149,7 +149,7 @@ MainPage.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
     }),
   ).isRequired,

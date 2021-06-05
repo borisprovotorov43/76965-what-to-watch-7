@@ -17,7 +17,7 @@ App.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
     }),
   ).isRequired,
