@@ -109,7 +109,8 @@ function MainPage({films, promo}) {
                 <FilmCard
                   key={`pc${film.id}`}
                   title={film.title}
-                  image={film.src}
+                  src={film.src}
+                  url={film.url}
                 />
               ))
             }
@@ -146,8 +147,10 @@ MainPage.propTypes = {
   }),
   films: PropTypes.arrayOf(
     PropTypes.shape({
-      image: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };

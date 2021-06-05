@@ -9,14 +9,16 @@ function App(props) {
 
 App.propTypes = {
   promo: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     genre: PropTypes.string,
     date: PropTypes.string,
   }),
   films: PropTypes.arrayOf(
     PropTypes.shape({
-      image: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };
