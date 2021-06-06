@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
 
-function PageHeader({ className }) {
+function PageHeader({className}) {
   return (
     <header className={`page-header ${className}`}>
       <Logo />
