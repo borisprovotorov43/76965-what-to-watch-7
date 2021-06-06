@@ -1395,11 +1395,17 @@ main {
   width: 100%;
   position: relative; }
 
+
+.user-page__content-not-found,
 .user-page__content {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   width: 100%; }
+  
+.user-page__content-not-found {
+  text-align: center;
+}
 
 .user-page__title {
   position: absolute;
