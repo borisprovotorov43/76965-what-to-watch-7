@@ -12,31 +12,70 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import PropTypes from 'prop-types';
 
-function App({films, promo}) {
+function App({ promoFilm, films, mylist }) {
   return (
     <BrowserRouter>
       <Switch>
         <Route  path={AppRoute.ROOT} exact>
           <MainPage
             films={films}
-            promo={promo}
+            promoFilm={promoFilm}
           />
         </Route>
         <Route path={AppRoute.LOGIN} exact>
           <SignInPage />
         </Route>
         <Route path={AppRoute.MY_LIST} exact>
-          <MyListPage />
+          <MyListPage films={mylist} />
         </Route>
-        <Route path={AppRoute.DEV_FILM} exact>
-          <FilmPage />
-        </Route>
-        <Route path={AppRoute.DEV_ADD_REVIEW} exact>
-          <AddReviewPage />
-        </Route>
-        <Route path={AppRoute.DEV_PLAYER} exact>
-          <PlayerPage />
-        </Route>
+        <Route
+          path={AppRoute.DEV_FILM}
+          exact
+          render={({ match }) => {
+            const { params } = match;
+            const { id } = params;
+            const getCurrentFilm = films.filter((item) => (item.id === +id) && item);
+
+            return (
+              <FilmPage
+                film={getCurrentFilm}
+                params={params}
+                filmsSimillar={films.slice(0, 4)}
+              />
+            );
+          }}
+        />
+        <Route
+          path={AppRoute.DEV_ADD_REVIEW}
+          exact
+          render={({ match }) => {
+            const { params } = match;
+            const { id } = params;
+            const getCurrentFilm = films.filter((item) => (item.id === +id) && item);
+
+            return (
+              <AddReviewPage
+                film={getCurrentFilm}
+                params={params}
+              />
+            );
+          }}
+        />
+        <Route
+          path={AppRoute.DEV_PLAYER}
+          exact
+          render={({ match }) => {
+            const { params } = match;
+            const { id } = params;
+            const getCurrentFilm = films.filter((item) => (item.id === +id) && item);
+
+            return (
+              <PlayerPage
+                film={getCurrentFilm}
+              />
+            );
+          }}
+        />
         <Route>
           <NotFoundPage />
         </Route>
@@ -46,7 +85,7 @@ function App({films, promo}) {
 }
 
 App.propTypes = {
-  promo: PropTypes.shape({
+  promoFilm: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string,
     date: PropTypes.string,
@@ -55,8 +94,23 @@ App.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
+      background: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired,
+      year: PropTypes.number.isRequired,
+      genre: PropTypes.string.isRequired,
+      director: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      scoresCount: PropTypes.number.isRequired,
+      starring: PropTypes.array.isRequired,
+    }),
+  ).isRequired,
+  mylist: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };
