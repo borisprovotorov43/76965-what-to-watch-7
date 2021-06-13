@@ -6,8 +6,8 @@ function FilmList({ films }) {
 
   const [activeFilmCard, setActiveFilmCard] = useState(0);
 
-  const handleOnHover = (booleanValue) => {
-    setActiveFilmCard(booleanValue);
+  const handleOnHover = (value) => {
+    setActiveFilmCard(value);
   };
 
   return (
