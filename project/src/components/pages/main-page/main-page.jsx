@@ -97,28 +97,30 @@ function MainPage({ films, promoFilm }) {
   );
 }
 
+const { string, number, array, arrayOf, shape } = PropTypes;
+
 MainPage.propTypes = {
-  promoFilm: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string,
-    date: PropTypes.string,
-    background: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
+  promoFilm: shape({
+    title: string.isRequired,
+    genre: string,
+    date: string,
+    background: string.isRequired,
+    poster: string.isRequired,
   }),
-  films: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      background: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired,
-      genre: PropTypes.string.isRequired,
-      director: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      scoresCount: PropTypes.number.isRequired,
-      starring: PropTypes.array.isRequired,
+  films: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      description: string.isRequired,
+      image: string.isRequired,
+      background: string.isRequired,
+      poster: string.isRequired,
+      year: number.isRequired,
+      genre: string.isRequired,
+      director: string.isRequired,
+      rating: number.isRequired,
+      scoresCount: number.isRequired,
+      starring: array.isRequired,
     }),
   ).isRequired,
 };

@@ -13,8 +13,10 @@ function PageHeader({ className }) {
   );
 }
 
+const { string } = PropTypes;
+
 PageHeader.propTypes = {
-  className: PropTypes.string,
+  className: string,
 };
 
 export default PageHeader;

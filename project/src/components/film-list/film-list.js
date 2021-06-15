@@ -28,12 +28,14 @@ function FilmList({ films }) {
   );
 }
 
+const { string, number, shape, arrayOf } = PropTypes;
+
 FilmList.propTypes = {
-  films: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+  films: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      image: string.isRequired,
     }),
   ).isRequired,
 };

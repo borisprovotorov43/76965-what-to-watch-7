@@ -24,12 +24,14 @@ function SmallFilmCard({ id, title, image, onActiveFilmSet, activeFilm }) {
   );
 }
 
+const { string, number, func } = PropTypes;
+
 SmallFilmCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  onActiveFilmSet: PropTypes.func.isRequired,
-  activeFilm: PropTypes.number.isRequired,
+  id: number.isRequired,
+  title: string.isRequired,
+  image: string.isRequired,
+  onActiveFilmSet: func.isRequired,
+  activeFilm: number.isRequired,
 };
 
 export default SmallFilmCard;

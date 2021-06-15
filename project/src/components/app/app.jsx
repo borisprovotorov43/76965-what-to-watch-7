@@ -12,7 +12,7 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import PropTypes from 'prop-types';
 
-function App({ promoFilm, films, mylist }) {
+function App({ promoFilm, films, filmsSimillar, mylist }) {
   return (
     <BrowserRouter>
       <Switch>
@@ -34,13 +34,13 @@ function App({ promoFilm, films, mylist }) {
           render={({ match }) => {
             const { params } = match;
             const { id } = params;
-            const getCurrentFilm = films.filter((item) => (item.id === +id) && item);
+            const getCurrentFilm = films.filter((item) => item.id === +id && item);
 
             return (
               <FilmPage
                 film={getCurrentFilm}
                 params={params}
-                filmsSimillar={films.slice(0, 4)}
+                filmsSimillar={filmsSimillar}
               />
             );
           }}
@@ -51,7 +51,7 @@ function App({ promoFilm, films, mylist }) {
           render={({ match }) => {
             const { params } = match;
             const { id } = params;
-            const getCurrentFilm = films.filter((item) => (item.id === +id) && item);
+            const getCurrentFilm = films.filter((item) => item.id === +id && item);
 
             return (
               <AddReviewPage
@@ -67,7 +67,7 @@ function App({ promoFilm, films, mylist }) {
           render={({ match }) => {
             const { params } = match;
             const { id } = params;
-            const getCurrentFilm = films.filter((item) => (item.id === +id) && item);
+            const getCurrentFilm = films.filter((item) => item.id === +id && item);
 
             return (
               <PlayerPage
@@ -84,33 +84,42 @@ function App({ promoFilm, films, mylist }) {
   );
 }
 
+const { string, number, shape, arrayOf, array } = PropTypes;
+
 App.propTypes = {
-  promoFilm: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string,
-    date: PropTypes.string,
+  promoFilm: shape({
+    title: string.isRequired,
+    genre: string,
+    date: string,
   }),
-  films: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      background: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired,
-      genre: PropTypes.string.isRequired,
-      director: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      scoresCount: PropTypes.number.isRequired,
-      starring: PropTypes.array.isRequired,
+  films: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      description: string.isRequired,
+      image: string.isRequired,
+      background: string.isRequired,
+      poster: string.isRequired,
+      year: number.isRequired,
+      genre: string.isRequired,
+      director: string.isRequired,
+      rating: number.isRequired,
+      scoresCount: number.isRequired,
+      starring: array.isRequired,
     }),
   ).isRequired,
-  mylist: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+  filmsSimillar: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      image: string.isRequired,
+    }),
+  ).isRequired,
+  mylist: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      image: string.isRequired,
     }),
   ).isRequired,
 };

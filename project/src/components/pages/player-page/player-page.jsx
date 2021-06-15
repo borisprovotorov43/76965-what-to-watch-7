@@ -46,11 +46,13 @@ function PlayerPage({ film }) {
   );
 }
 
+const { string, arrayOf, shape } = PropTypes;
+
 PlayerPage.propTypes = {
-  film: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      videoLink: PropTypes.string.isRequired,
+  film: arrayOf(
+    shape({
+      title: string.isRequired,
+      videoLink: string.isRequired,
     }).isRequired,
   ),
 };

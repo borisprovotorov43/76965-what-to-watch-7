@@ -16,8 +16,10 @@ function Logo({ className }) {
   );
 }
 
+const { string } = PropTypes;
+
 Logo.propTypes = {
-  className: PropTypes.string,
+  className: string,
 };
 
 Logo.defaultProps = {

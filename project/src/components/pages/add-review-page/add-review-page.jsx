@@ -53,14 +53,16 @@ function AddReviewPage({ film, params }) {
   }
 }
 
+const { string, number, any, arrayOf, shape } = PropTypes;
+
 AddReviewPage.propTypes = {
-  params: PropTypes.any.isRequired,
-  film: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      background: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
+  params: any.isRequired,
+  film: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      background: string.isRequired,
+      poster: string.isRequired,
     }).isRequired,
   ),
 };

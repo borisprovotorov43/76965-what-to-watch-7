@@ -119,22 +119,24 @@ function FilmPage({ film, filmsSimillar, params }) {
   }
 }
 
+const { string, number, any, array, arrayOf, shape } = PropTypes;
+
 FilmPage.propTypes = {
-  filmsSimillar: PropTypes.array.isRequired,
-  params: PropTypes.any.isRequired,
-  film: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      background: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired,
-      genre: PropTypes.string.isRequired,
-      director: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      scoresCount: PropTypes.number.isRequired,
-      starring: PropTypes.array.isRequired,
+  filmsSimillar: array.isRequired,
+  params: any.isRequired,
+  film: arrayOf(
+    shape({
+      title: string.isRequired,
+      description: string.isRequired,
+      image: string.isRequired,
+      background: string.isRequired,
+      poster: string.isRequired,
+      year: number.isRequired,
+      genre: string.isRequired,
+      director: string.isRequired,
+      rating: number.isRequired,
+      scoresCount: number.isRequired,
+      starring: array.isRequired,
     }).isRequired,
   ),
 };
