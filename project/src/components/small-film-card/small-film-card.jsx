@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-function SmallFilmCard({ id, title, image, onActiveFilmSet, activeFilmCard }) {
+function SmallFilmCard({ id, title, image, onActiveFilmSet, activeFilm }) {
 
   const handleMouseEnter = () => onActiveFilmSet(id);
   const handleMouseLeave = () => onActiveFilmSet(0);
 
   return (
-    <article className={cx('small-film-card', 'catalog__films-card', { 'active': activeFilmCard === id })}
+    <article className={cx('small-film-card', 'catalog__films-card', { 'active': activeFilm === id })}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -29,7 +29,7 @@ SmallFilmCard.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   onActiveFilmSet: PropTypes.func.isRequired,
-  activeFilmCard: PropTypes.number.isRequired,
+  activeFilm: PropTypes.number.isRequired,
 };
 
 export default SmallFilmCard;

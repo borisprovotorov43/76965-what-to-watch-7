@@ -4,7 +4,7 @@ import SmallFilmCard from '../small-film-card/small-film-card';
 
 function FilmList({ films }) {
 
-  const [activeFilmCard, setActiveFilmCard] = useState(0);
+  const [activeFilm, setActiveFilmCard] = useState(0);
 
   const setActiveFilm = (value) => {
     setActiveFilmCard(value);
@@ -20,7 +20,7 @@ function FilmList({ films }) {
             title={title}
             image={image}
             onActiveFilmSet={setActiveFilm}
-            activeFilmCard={activeFilmCard}
+            activeFilm={activeFilm}
           />
         ))
       }
