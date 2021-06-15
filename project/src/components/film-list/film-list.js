@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import SmallFilmCard from '../small-film-card/small-film-card';
 
 function FilmList({ films }) {
+  const [activeFilm, setActiveFilm] = useState(0);
 
-  const [activeFilm, setActiveFilmCard] = useState(0);
-
-  const setActiveFilm = (value) => {
-    setActiveFilmCard(value);
-  };
+  const onActiveFilmSet = (value) => setActiveFilm(value);
 
   return (
     <div className="catalog__films-list">
@@ -19,7 +16,7 @@ function FilmList({ films }) {
             key={`pc${id}`}
             title={title}
             image={image}
-            onActiveFilmSet={setActiveFilm}
+            onActiveFilmSet={onActiveFilmSet}
             activeFilm={activeFilm}
           />
         ))
