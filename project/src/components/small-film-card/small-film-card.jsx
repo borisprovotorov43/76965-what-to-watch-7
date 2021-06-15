@@ -1,14 +1,18 @@
 import React from 'react';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-function SmallFilmCard({ id, title, image, onHandleHover, activeFilmCard }) {
+function SmallFilmCard({ id, title, image, onActiveFilmSet, activeFilmCard }) {
+
+  const handleMouseEnter = () => onActiveFilmSet(id);
+  const handleMouseLeave = () => onActiveFilmSet(0);
 
   return (
-    <article className={`small-film-card catalog__films-card ${activeFilmCard === id && 'active'}`}
-      onMouseEnter={() => onHandleHover(id)}
-      onMouseLeave={() => onHandleHover(0)}
+    <article className={cx('small-film-card', 'catalog__films-card', { 'active': activeFilmCard === id })}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="small-film-card__image">
         <img src={image} alt={title} width="280" height="175" />
@@ -24,7 +28,7 @@ SmallFilmCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  onHandleHover: PropTypes.func.isRequired,
+  onActiveFilmSet: PropTypes.func.isRequired,
   activeFilmCard: PropTypes.number.isRequired,
 };
 

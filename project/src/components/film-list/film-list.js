@@ -6,7 +6,7 @@ function FilmList({ films }) {
 
   const [activeFilmCard, setActiveFilmCard] = useState(0);
 
-  const handleOnHover = (value) => {
+  const setActiveFilm = (value) => {
     setActiveFilmCard(value);
   };
 
@@ -19,7 +19,7 @@ function FilmList({ films }) {
             key={`pc${id}`}
             title={title}
             image={image}
-            onHandleHover={handleOnHover}
+            onActiveFilmSet={setActiveFilm}
             activeFilmCard={activeFilmCard}
           />
         ))
