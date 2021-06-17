@@ -1,4 +1,4 @@
-export const FILMS_SIMILLAR = [{
+export const SIMILLAR_FILMS = [{
   id: 1,
   title: 'Fantastic Beasts: The Crimes of Grindelwald',
   description: 'In an effort to thwart Grindelwald\'s plans of raising pure-blood wizards to rule over all non-magical beings, Albus Dumbledore enlists his former student Newt Scamander, who agrees to help, though he\'s unaware of the dangers that lie ahead. Lines are drawn as love and loyalty are tested, even among the truest friends and family, in an increasingly divided wizarding world.',

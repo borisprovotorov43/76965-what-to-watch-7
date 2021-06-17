@@ -8,3 +8,5 @@ export const AppRoute = {
   DEV_ADD_REVIEW: '/films/:id/review',
   DEV_PLAYER: '/player/:id',
 };
+
+export const RAITIND_DEFAULT = 8;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Logo from '../../logo/logo';
 import AddReviewsFrom from '../../add-review-form/add-reviews-form';
@@ -7,13 +8,11 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import UserBlock from '../../user-block/user-block';
 
 import { AppRoute } from '../../../const';
-import PropTypes from 'prop-types';
 
-function AddReviewPage({ film, params }) {
-
-  if(film) {
-    const { id } = params;
-    const { title, background, poster } = film[0];
+function AddReviewPage({ currentFilm }) {
+  const { id } = useParams();
+  if(currentFilm) {
+    const { title, background, poster } = currentFilm[0];
 
     return (
       <section className="film-card film-card--full">
@@ -48,16 +47,15 @@ function AddReviewPage({ film, params }) {
         <AddReviewsFrom />
       </section>
     );
-  } else {
-    return <NotFoundPage />;
   }
+
+  return <NotFoundPage />;
 }
 
-const { string, number, any, arrayOf, shape } = PropTypes;
+const { string, number, arrayOf, shape } = PropTypes;
 
 AddReviewPage.propTypes = {
-  params: any.isRequired,
-  film: arrayOf(
+  currentFilm: arrayOf(
     shape({
       id: number.isRequired,
       title: string.isRequired,

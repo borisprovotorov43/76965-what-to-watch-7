@@ -10,9 +10,9 @@ import { getRatingName } from '../../../utils';
 import { AppRoute } from '../../../const';
 import PropTypes from 'prop-types';
 
-function FilmPage({ film, filmsSimillar, params }) {
+function FilmPage({ currentFilm, similarFilms, params }) {
 
-  if(film) {
+  if(currentFilm) {
     const { id } = params;
     const {
       title,
@@ -25,7 +25,7 @@ function FilmPage({ film, filmsSimillar, params }) {
       rating,
       scoresCount,
       starring,
-    } = film[0];
+    } = currentFilm[0];
 
     return (
       <>
@@ -108,23 +108,23 @@ function FilmPage({ film, filmsSimillar, params }) {
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <FilmList films={filmsSimillar} />
+            <FilmList films={similarFilms} />
           </section>
           <PageFooter />
         </div>
       </>
     );
-  } else {
-    return <NotFoundPage />;
   }
+
+  return <NotFoundPage />;
 }
 
 const { string, number, any, array, arrayOf, shape } = PropTypes;
 
 FilmPage.propTypes = {
-  filmsSimillar: array.isRequired,
+  similarFilms: array.isRequired,
   params: any.isRequired,
-  film: arrayOf(
+  currentFilm: arrayOf(
     shape({
       title: string.isRequired,
       description: string.isRequired,

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 function SmallFilmCard({ id, title, image, onActiveFilmSet, activeFilm }) {
-
   const handleMouseEnter = () => onActiveFilmSet(id);
   const handleMouseLeave = () => onActiveFilmSet(0);
 

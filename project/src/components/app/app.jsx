@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
@@ -10,9 +11,13 @@ import AddReviewPage from '../pages/add-review-page/add-review-page';
 import PlayerPage from '../pages/player-page/player-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
-import PropTypes from 'prop-types';
 
-function App({ promoFilm, films, filmsSimillar, mylist }) {
+function App({ promoFilm, films, similarFilms, mylist }) {
+
+  function getCurrentFilm (filmsArray, id) {
+    return filmsArray.filter((item) => item.id === +id && item);
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -34,13 +39,13 @@ function App({ promoFilm, films, filmsSimillar, mylist }) {
           render={({ match }) => {
             const { params } = match;
             const { id } = params;
-            const getCurrentFilm = films.filter((item) => item.id === +id && item);
+            const currentFilm = getCurrentFilm(films, id);
 
             return (
               <FilmPage
-                film={getCurrentFilm}
+                currentFilm={currentFilm}
                 params={params}
-                filmsSimillar={filmsSimillar}
+                similarFilms={similarFilms}
               />
             );
           }}
@@ -51,12 +56,11 @@ function App({ promoFilm, films, filmsSimillar, mylist }) {
           render={({ match }) => {
             const { params } = match;
             const { id } = params;
-            const getCurrentFilm = films.filter((item) => item.id === +id && item);
+            const currentFilm = getCurrentFilm(films, id);
 
             return (
               <AddReviewPage
-                film={getCurrentFilm}
-                params={params}
+                currentFilm={currentFilm}
               />
             );
           }}
@@ -67,11 +71,11 @@ function App({ promoFilm, films, filmsSimillar, mylist }) {
           render={({ match }) => {
             const { params } = match;
             const { id } = params;
-            const getCurrentFilm = films.filter((item) => item.id === +id && item);
+            const currentFilm = getCurrentFilm(films, id);
 
             return (
               <PlayerPage
-                film={getCurrentFilm}
+                currentFilm={currentFilm}
               />
             );
           }}
@@ -108,7 +112,7 @@ App.propTypes = {
       starring: array.isRequired,
     }),
   ).isRequired,
-  filmsSimillar: arrayOf(
+  similarFilms: arrayOf(
     shape({
       id: number.isRequired,
       title: string.isRequired,

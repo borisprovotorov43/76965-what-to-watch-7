@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function PlayerPage({ film }) {
-  const { title, videoLink} = film[0];
+function PlayerPage({ currentFilm }) {
+  const { title, videoLink } = currentFilm[0];
 
   return (
     <div className="player">
@@ -49,7 +49,7 @@ function PlayerPage({ film }) {
 const { string, arrayOf, shape } = PropTypes;
 
 PlayerPage.propTypes = {
-  film: arrayOf(
+  currentFilm: arrayOf(
     shape({
       title: string.isRequired,
       videoLink: string.isRequired,
