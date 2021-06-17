@@ -19,10 +19,10 @@ function RatingInput({ id, onHandleChangeRating }) {
   );
 }
 
-const { number, func } = PropTypes;
+const { string, func } = PropTypes;
 
 RatingInput.propTypes = {
-  id: number.isRequired,
+  id: string.isRequired,
   onHandleChangeRating: func.isRequired,
 };
 

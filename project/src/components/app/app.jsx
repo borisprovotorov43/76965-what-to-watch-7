@@ -44,7 +44,6 @@ function App({ promoFilm, films, similarFilms, mylist }) {
             return (
               <FilmPage
                 currentFilm={currentFilm}
-                params={params}
                 similarFilms={similarFilms}
               />
             );

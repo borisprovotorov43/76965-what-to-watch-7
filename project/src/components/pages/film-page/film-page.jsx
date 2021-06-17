@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import PageFooter from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
@@ -8,12 +9,10 @@ import NotFoundPage from '../not-found-page/not-found-page';
 
 import { getRatingName } from '../../../utils';
 import { AppRoute } from '../../../const';
-import PropTypes from 'prop-types';
 
-function FilmPage({ currentFilm, similarFilms, params }) {
-
+function FilmPage({ currentFilm, similarFilms }) {
+  const { id } = useParams();
   if(currentFilm) {
-    const { id } = params;
     const {
       title,
       description,
@@ -119,11 +118,10 @@ function FilmPage({ currentFilm, similarFilms, params }) {
   return <NotFoundPage />;
 }
 
-const { string, number, any, array, arrayOf, shape } = PropTypes;
+const { string, number, array, arrayOf, shape } = PropTypes;
 
 FilmPage.propTypes = {
   similarFilms: array.isRequired,
-  params: any.isRequired,
   currentFilm: arrayOf(
     shape({
       title: string.isRequired,
