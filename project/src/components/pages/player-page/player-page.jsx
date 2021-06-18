@@ -9,9 +9,9 @@ function PlayerPage({ currentFilm }) {
       <video
         className="player__video"
         poster="img/player-poster.jpg"
+        src={videoLink}
         autoPlay
         muted
-        src={videoLink}
       />
 
       <button type="button" className="player__exit">Exit</button>

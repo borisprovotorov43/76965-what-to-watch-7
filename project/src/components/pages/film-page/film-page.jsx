@@ -12,7 +12,7 @@ import { AppRoute } from '../../../const';
 
 function FilmPage({ currentFilm, similarFilms }) {
   const { id } = useParams();
-  if(currentFilm) {
+  if (currentFilm) {
     const {
       title,
       description,

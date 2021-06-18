@@ -10,3 +10,4 @@ export const AppRoute = {
 };
 
 export const RAITIND_DEFAULT = 8;
+export const MAX_RAITING_VALUE = 10;

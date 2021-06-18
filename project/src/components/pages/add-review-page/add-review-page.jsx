@@ -11,7 +11,8 @@ import { AppRoute } from '../../../const';
 
 function AddReviewPage({ currentFilm }) {
   const { id } = useParams();
-  if(currentFilm) {
+
+  if (currentFilm) {
     const { title, background, poster } = currentFilm[0];
 
     return (

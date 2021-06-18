@@ -11,9 +11,7 @@ import AddReviewPage from '../pages/add-review-page/add-review-page';
 import PlayerPage from '../pages/player-page/player-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
-
 function App({ promoFilm, films, similarFilms, mylist }) {
-
   function getCurrentFilm (filmsArray, id) {
     return filmsArray.filter((item) => item.id === +id && item);
   }
@@ -36,11 +34,8 @@ function App({ promoFilm, films, similarFilms, mylist }) {
         <Route
           path={AppRoute.DEV_FILM}
           exact
-          render={({ match }) => {
-            const { params } = match;
-            const { id } = params;
+          render={({ match: { params: { id } } }) => {
             const currentFilm = getCurrentFilm(films, id);
-
             return (
               <FilmPage
                 currentFilm={currentFilm}
@@ -52,11 +47,8 @@ function App({ promoFilm, films, similarFilms, mylist }) {
         <Route
           path={AppRoute.DEV_ADD_REVIEW}
           exact
-          render={({ match }) => {
-            const { params } = match;
-            const { id } = params;
+          render={({ match: { params: { id } } }) => {
             const currentFilm = getCurrentFilm(films, id);
-
             return (
               <AddReviewPage
                 currentFilm={currentFilm}
@@ -67,11 +59,8 @@ function App({ promoFilm, films, similarFilms, mylist }) {
         <Route
           path={AppRoute.DEV_PLAYER}
           exact
-          render={({ match }) => {
-            const { params } = match;
-            const { id } = params;
+          render={({ match: { params: { id } } }) => {
             const currentFilm = getCurrentFilm(films, id);
-
             return (
               <PlayerPage
                 currentFilm={currentFilm}
