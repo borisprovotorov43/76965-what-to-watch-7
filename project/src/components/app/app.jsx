@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
@@ -10,33 +11,63 @@ import AddReviewPage from '../pages/add-review-page/add-review-page';
 import PlayerPage from '../pages/player-page/player-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
-import PropTypes from 'prop-types';
+function App({ promoFilm, films, similarFilms, mylist }) {
+  function getCurrentFilm (filmsArray, id) {
+    return filmsArray.filter((item) => item.id === +id && item);
+  }
 
-function App({films, promo}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route  path={AppRoute.ROOT} exact>
           <MainPage
             films={films}
-            promo={promo}
+            promoFilm={promoFilm}
           />
         </Route>
         <Route path={AppRoute.LOGIN} exact>
           <SignInPage />
         </Route>
         <Route path={AppRoute.MY_LIST} exact>
-          <MyListPage />
+          <MyListPage films={mylist} />
         </Route>
-        <Route path={AppRoute.DEV_FILM} exact>
-          <FilmPage />
-        </Route>
-        <Route path={AppRoute.DEV_ADD_REVIEW} exact>
-          <AddReviewPage />
-        </Route>
-        <Route path={AppRoute.DEV_PLAYER} exact>
-          <PlayerPage />
-        </Route>
+        <Route
+          path={AppRoute.DEV_FILM}
+          exact
+          render={({ match: { params: { id } } }) => {
+            const currentFilm = getCurrentFilm(films, id);
+            return (
+              <FilmPage
+                currentFilm={currentFilm}
+                similarFilms={similarFilms}
+              />
+            );
+          }}
+        />
+        <Route
+          path={AppRoute.DEV_ADD_REVIEW}
+          exact
+          render={({ match: { params: { id } } }) => {
+            const currentFilm = getCurrentFilm(films, id);
+            return (
+              <AddReviewPage
+                currentFilm={currentFilm}
+              />
+            );
+          }}
+        />
+        <Route
+          path={AppRoute.DEV_PLAYER}
+          exact
+          render={({ match: { params: { id } } }) => {
+            const currentFilm = getCurrentFilm(films, id);
+            return (
+              <PlayerPage
+                currentFilm={currentFilm}
+              />
+            );
+          }}
+        />
         <Route>
           <NotFoundPage />
         </Route>
@@ -45,18 +76,42 @@ function App({films, promo}) {
   );
 }
 
+const { string, number, shape, arrayOf, array } = PropTypes;
+
 App.propTypes = {
-  promo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string,
-    date: PropTypes.string,
+  promoFilm: shape({
+    title: string.isRequired,
+    genre: string,
+    date: string,
   }),
-  films: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
+  films: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      description: string.isRequired,
+      image: string.isRequired,
+      background: string.isRequired,
+      poster: string.isRequired,
+      year: number.isRequired,
+      genre: string.isRequired,
+      director: string.isRequired,
+      rating: number.isRequired,
+      scoresCount: number.isRequired,
+      starring: array.isRequired,
+    }),
+  ).isRequired,
+  similarFilms: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      image: string.isRequired,
+    }),
+  ).isRequired,
+  mylist: arrayOf(
+    shape({
+      id: number.isRequired,
+      title: string.isRequired,
+      image: string.isRequired,
     }),
   ).isRequired,
 };
