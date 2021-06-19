@@ -5,19 +5,20 @@ import SmallFilmCard from '../small-film-card/small-film-card';
 function FilmList({ films }) {
   const [activeFilm, setActiveFilm] = useState(0);
 
-  const onActiveFilmSet = (value) => setActiveFilm(value);
+  const handleActiveFilmSet = (value) => setActiveFilm(value);
 
   return (
     <div className="catalog__films-list">
       {
-        films.map(({ id, title, image })  => (
+        films.map(({ id, title, image, videoLink }) => (
           <SmallFilmCard
             id={id}
             key={`pc${id}`}
             title={title}
             image={image}
-            onActiveFilmSet={onActiveFilmSet}
+            onActiveFilmSet={handleActiveFilmSet}
             activeFilm={activeFilm}
+            videoLink={videoLink}
           />
         ))
       }
@@ -33,6 +34,7 @@ FilmList.propTypes = {
       id: number.isRequired,
       title: string.isRequired,
       image: string.isRequired,
+      videoLink: string.videoLink,
     }),
   ).isRequired,
 };

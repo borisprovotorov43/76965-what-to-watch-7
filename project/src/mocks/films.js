@@ -24,7 +24,7 @@ export const FILMS = [{
   image: 'img/bohemian-rhapsody.jpg',
   background: 'https://placeimg.com/1300/552/nature',
   poster: 'https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/cc59dfcd-fce7-4aeb-b661-1e356116a0a4/800x800',
-  videoLink: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+  videoLink: 'https://video-preview.s3.yandex.net/vh/17652839779125889415_vmaf-preview-536.mp4',
   year: 2018,
   genre: 'drama',
   director: 'Wes Andreson',
