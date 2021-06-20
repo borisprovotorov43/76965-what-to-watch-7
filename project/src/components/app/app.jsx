@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { getCurrentFilm } from '../../utils';
 
 import MainPage from '../pages/main-page/main-page';
 import SignInPage from '../pages/sign-in-page/sign-in-page';
@@ -12,10 +13,6 @@ import PlayerPage from '../pages/player-page/player-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 function App({ promoFilm, films, similarFilms, mylist }) {
-  function getCurrentFilm(filmsArray, id){
-    return filmsArray.filter((item) => item.id === +id && item);
-  }
-
   return (
     <BrowserRouter>
       <Switch>

@@ -18,7 +18,7 @@ function SmallFilmCard({ id, title, image, onActiveFilmSet, activeFilm, videoLin
       <div className="small-film-card__image">
         {activeFilm !== id
           ? <img src={image} alt={title} width="280" height="175" />
-          : <VideoPlayer videoLink={videoLink} />}
+          : <VideoPlayer source={videoLink} />}
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`${AppRoute.FILMS}/${id}`}>{title}</Link>

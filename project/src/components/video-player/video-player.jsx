@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
-function VideoPlayer({ videoLink }) {
+function VideoPlayer({ source }) {
   const videoPlayer = useRef(null);
 
-  if (videoLink) {
-    setTimeout(() =>{
+  if (source) {
+    setTimeout(() => {
       const video = videoPlayer.current;
       video && videoPlayer.current.play();
     }, 1000);
@@ -15,7 +15,7 @@ function VideoPlayer({ videoLink }) {
     <video
       className="player__video"
       poster="img/player-poster.jpg"
-      src={videoLink}
+      src={source}
       ref={videoPlayer}
       muted
     />
@@ -25,7 +25,7 @@ function VideoPlayer({ videoLink }) {
 const { string } = PropTypes;
 
 VideoPlayer.propTypes = {
-  videoLink: string.isRequired,
+  source: string.isRequired,
 };
 
 export default VideoPlayer;
