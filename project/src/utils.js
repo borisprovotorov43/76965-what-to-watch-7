@@ -11,3 +11,7 @@ export function getRatingName(ratingNumber) {
     return 'Bad';
   }
 }
+
+export function getCurrentFilm(films, id) {
+  return films.filter((item) => item.id === +id && item);
+}
