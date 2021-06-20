@@ -12,7 +12,7 @@ import PlayerPage from '../pages/player-page/player-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 function App({ promoFilm, films, similarFilms, mylist }) {
-  function getCurrentFilm (filmsArray, id) {
+  function getCurrentFilm(filmsArray, id){
     return filmsArray.filter((item) => item.id === +id && item);
   }
 

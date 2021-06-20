@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RatingInput from '../rating-input/rating-input';
+import Rating from '../rating/rating';
 
 function AddReviewsForm() {
   const [formData, setFormData] = useState({
@@ -26,7 +26,7 @@ function AddReviewsForm() {
       <form action="#" className="add-review__form">
         <div className="rating">
           <div className="rating__stars">
-            <RatingInput onHandleRatingChange={handleRatingChange} />
+            <Rating onHandleRatingChange={handleRatingChange} />
           </div>
         </div>
         <div className="add-review__text">
