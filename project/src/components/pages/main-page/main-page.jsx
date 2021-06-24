@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PageFooter from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
 import FilmList from '../../film-list/film-list';
+import GenreList from '../../genre-list/genre-list';
 
-function MainPage({ films, promoFilm }) {
+function MainPage({ filmsFiltered, promoFilm }) {
   const { background, poster, title, genre, date } = promoFilm;
 
   return (
@@ -53,40 +55,8 @@ function MainPage({ films, promoFilm }) {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
-          <FilmList films={films} />
+          <GenreList />
+          <FilmList films={filmsFiltered} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -96,6 +66,10 @@ function MainPage({ films, promoFilm }) {
     </>
   );
 }
+
+const mapStateToProps = (state) => ({
+  filmsFiltered: state.filmsFiltered,
+});
 
 const { string, number, array, arrayOf, shape } = PropTypes;
 
@@ -107,7 +81,7 @@ MainPage.propTypes = {
     background: string.isRequired,
     poster: string.isRequired,
   }),
-  films: arrayOf(
+  filmsFiltered: arrayOf(
     shape({
       id: number.isRequired,
       title: string.isRequired,
@@ -125,4 +99,6 @@ MainPage.propTypes = {
   ).isRequired,
 };
 
-export default MainPage;
+export { MainPage };
+export default connect(mapStateToProps)(MainPage);
+
