@@ -6,7 +6,10 @@ import PageHeader from '../../page-header/page-header';
 import FilmList from '../../film-list/film-list';
 import GenreList from '../../genre-list/genre-list';
 
-function MainPage({ filmsFiltered, promoFilm }) {
+import { getFilmsByGenre } from '../../../utils';
+import { DEFAULT_GENGE } from '../../../const';
+
+function MainPage({ films, promoFilm }) {
   const { background, poster, title, genre, date } = promoFilm;
 
   return (
@@ -55,8 +58,8 @@ function MainPage({ filmsFiltered, promoFilm }) {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList />
-          <FilmList films={filmsFiltered} />
+          <GenreList defaultGenge={DEFAULT_GENGE} />
+          <FilmList films={films} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -67,8 +70,8 @@ function MainPage({ filmsFiltered, promoFilm }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  filmsFiltered: state.filmsFiltered,
+const mapStateToProps = ({ films, currentGenre }) => ({
+  films: (currentGenre === DEFAULT_GENGE) ? films : getFilmsByGenre(films, currentGenre),
 });
 
 const { string, number, array, arrayOf, shape } = PropTypes;
@@ -81,7 +84,7 @@ MainPage.propTypes = {
     background: string.isRequired,
     poster: string.isRequired,
   }),
-  filmsFiltered: arrayOf(
+  films: arrayOf(
     shape({
       id: number.isRequired,
       title: string.isRequired,

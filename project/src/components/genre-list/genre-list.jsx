@@ -3,16 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { ActionCreator } from '../../store/action';
-import { FILM_GENRE } from '../../const';
 
-function GenreList({ filmsAll, onFilmsFiltered, onChangeGenre, filterGenre }) {
-  const genres = Array.from(new Set(filmsAll.map(({ genre }) => genre)));
-  genres.unshift(FILM_GENRE);
+function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
+  const genres = [defaultGenge, ...new Set(films.map(({ genre }) => genre))];
 
   const handleFilmsFilteredClick = (evt, genre) => {
     evt.preventDefault();
     onChangeGenre(genre);
-    onFilmsFiltered(genre);
   };
 
   return (
@@ -20,7 +17,7 @@ function GenreList({ filmsAll, onFilmsFiltered, onChangeGenre, filterGenre }) {
       {genres.map((genre) => (
         <li
           key={`genre-${genre}`}
-          className={cx('catalog__genres-item', { 'catalog__genres-item--active': genre === filterGenre })}
+          className={cx('catalog__genres-item', { 'catalog__genres-item--active': genre === currentGenre })}
         >
           <a
             href="#/"
@@ -36,17 +33,11 @@ function GenreList({ filmsAll, onFilmsFiltered, onChangeGenre, filterGenre }) {
 }
 
 const mapStateToProps = (state) => ({
-  filterGenre: state.filterGenre,
-  filmsAll: state.filmsAll,
-  genreList: state.genreList,
+  currentGenre: state.currentGenre,
+  films: state.films,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFilmsFiltered(genre) {
-    dispatch(ActionCreator.filmsFiltered({
-      payload: genre,
-    }));
-  },
   onChangeGenre(genre) {
     dispatch(ActionCreator.changeGenre({
       payload: genre,
@@ -57,7 +48,7 @@ const mapDispatchToProps = (dispatch) => ({
 const { arrayOf, shape, number, string, func } = PropTypes;
 
 GenreList.propTypes = {
-  filmsAll: arrayOf(
+  films: arrayOf(
     shape({
       id: number.isRequired,
       title: string.isRequired,
@@ -65,9 +56,9 @@ GenreList.propTypes = {
       videoLink: string.videoLink,
     }),
   ).isRequired,
-  onFilmsFiltered: func.isRequired,
+  currentGenre: string.isRequired,
+  defaultGenge: string.isRequired,
   onChangeGenre: func.isRequired,
-  filterGenre: string.isRequired,
 };
 
 export { GenreList };

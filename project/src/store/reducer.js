@@ -1,11 +1,10 @@
 import { ActionType } from './action';
-import { FILM_GENRE } from './../const';
+import { DEFAULT_GENGE } from './../const';
 import { FILMS } from './../mocks/films';
 
 const initialState = {
-  filmsAll: FILMS,
-  filterGenre: FILM_GENRE,
-  filmsFiltered: FILMS,
+  films: FILMS,
+  currentGenre: DEFAULT_GENGE,
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,14 +12,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_GENRE:
       return {
         ...state,
-        filterGenre: action.payload,
-      };
-    case ActionType.FILTER_FILMS_BY_GENGRE:
-      return {
-        ...state,
-        filmsFiltered: (action.payload === FILM_GENRE)
-          ? FILMS
-          : FILMS.filter((item) => item.genre === action.payload),
+        currentGenre: action.payload,
       };
     default:
       return state;
