@@ -12,14 +12,13 @@ import AddReviewPage from '../pages/add-review-page/add-review-page';
 import PlayerPage from '../pages/player-page/player-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
-function App({ promoFilm, films, similarFilms, mylist, defaultGenge }) {
+function App({ promoFilm, films, similarFilms, mylist }) {
   return (
     <BrowserRouter>
       <Switch>
         <Route  path={AppRoute.ROOT} exact>
           <MainPage
             promoFilm={promoFilm}
-            defaultGenge={defaultGenge}
           />
         </Route>
         <Route path={AppRoute.LOGIN} exact>
@@ -111,7 +110,6 @@ App.propTypes = {
       image: string.isRequired,
     }),
   ).isRequired,
-  defaultGenge: string.isRequired,
 };
 
 export default App;
