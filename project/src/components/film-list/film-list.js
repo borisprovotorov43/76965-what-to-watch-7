@@ -4,7 +4,6 @@ import SmallFilmCard from '../small-film-card/small-film-card';
 
 function FilmList({ films }) {
   const [activeFilm, setActiveFilm] = useState(0);
-
   const handleActiveFilmSet = (value) => setActiveFilm(value);
 
   return (

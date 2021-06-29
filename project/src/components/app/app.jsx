@@ -18,7 +18,6 @@ function App({ promoFilm, films, similarFilms, mylist }) {
       <Switch>
         <Route  path={AppRoute.ROOT} exact>
           <MainPage
-            films={films}
             promoFilm={promoFilm}
           />
         </Route>
