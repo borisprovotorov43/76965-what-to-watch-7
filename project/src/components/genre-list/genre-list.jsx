@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { ActionCreator } from '../../store/action';
+import { changeGenre } from '../../store/action';
 
 function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
   const genres = [defaultGenge, ...new Set(films.map(({ genre }) => genre))];
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeGenre(genre) {
-    dispatch(ActionCreator.changeGenre({
+    dispatch(changeGenre({
       payload: genre,
     }));
   },
@@ -51,9 +51,9 @@ GenreList.propTypes = {
   films: arrayOf(
     shape({
       id: number.isRequired,
-      title: string.isRequired,
-      image: string.isRequired,
-      videoLink: string.videoLink,
+      name: string.isRequired,
+      previewImage: string.isRequired,
+      previewVideoLink: string,
     }),
   ).isRequired,
   currentGenre: string.isRequired,

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import PageFooter from '../../page-footer/page-footer';
@@ -7,18 +8,28 @@ import PageHeader from '../../page-header/page-header';
 import FilmList from '../../film-list/film-list';
 import NotFoundPage from '../not-found-page/not-found-page';
 
-import { getRatingName } from '../../../utils';
 import { AppRoute } from '../../../const';
+import { getRatingName } from '../../../utils';
+import { fetchSimilarFilms } from '../../../store/api-actions';
 
-function FilmPage({ currentFilm, similarFilms }) {
+function FilmPage({
+  currentFilm,
+  similarFilms,
+  onFetchSimilarFilms,
+}) {
   const { id } = useParams();
-  if (currentFilm) {
+
+  useEffect(() => {
+    onFetchSimilarFilms(id);
+  }, [id, onFetchSimilarFilms]);
+
+  if (currentFilm.length > 0) {
     const {
-      title,
+      name,
       description,
-      background,
-      poster,
-      year,
+      backgroundImage,
+      posterImage,
+      released,
       genre,
       director,
       rating,
@@ -31,7 +42,7 @@ function FilmPage({ currentFilm, similarFilms }) {
         <section className="film-card film-card--full">
           <div className="film-card__hero">
             <div className="film-card__bg">
-              <img src={background} alt={title} />
+              <img src={backgroundImage} alt={name} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -39,10 +50,10 @@ function FilmPage({ currentFilm, similarFilms }) {
 
             <div className="film-card__wrap">
               <div className="film-card__desc">
-                <h2 className="film-card__title">{title}</h2>
+                <h2 className="film-card__title">{name}</h2>
                 <p className="film-card__meta">
                   <span className="film-card__genre">{genre}</span>
-                  <span className="film-card__year">{year}</span>
+                  <span className="film-card__year">{released}</span>
                 </p>
 
                 <div className="film-card__buttons">
@@ -67,7 +78,7 @@ function FilmPage({ currentFilm, similarFilms }) {
           <div className="film-card__wrap film-card__translate-top">
             <div className="film-card__info">
               <div className="film-card__poster film-card__poster--big">
-                <img src={poster} alt={title} width="218" height="327" />
+                <img src={posterImage} alt={name} width="218" height="327" />
               </div>
 
               <div className="film-card__desc">
@@ -118,18 +129,18 @@ function FilmPage({ currentFilm, similarFilms }) {
   return <NotFoundPage />;
 }
 
-const { string, number, array, arrayOf, shape } = PropTypes;
+const { string, number, array, func, arrayOf, shape } = PropTypes;
 
 FilmPage.propTypes = {
   similarFilms: array.isRequired,
+  onFetchSimilarFilms: func.isRequired,
   currentFilm: arrayOf(
     shape({
-      title: string.isRequired,
+      name: string.isRequired,
       description: string.isRequired,
-      image: string.isRequired,
-      background: string.isRequired,
-      poster: string.isRequired,
-      year: number.isRequired,
+      backgroundImage: string.isRequired,
+      posterImage: string.isRequired,
+      released: number.isRequired,
       genre: string.isRequired,
       director: string.isRequired,
       rating: number.isRequired,
@@ -139,4 +150,15 @@ FilmPage.propTypes = {
   ),
 };
 
-export default FilmPage;
+const mapDispatchToProps = (dispatch) => ({
+  onFetchSimilarFilms(id) {
+    dispatch(fetchSimilarFilms(id));
+  },
+});
+
+const mapStateToProps = (state) => ({
+  similarFilms: state.similarFilms,
+});
+
+export { FilmPage };
+export default connect(mapStateToProps, mapDispatchToProps)(FilmPage);

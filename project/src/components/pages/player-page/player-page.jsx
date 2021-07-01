@@ -51,7 +51,7 @@ const { string, arrayOf, shape } = PropTypes;
 PlayerPage.propTypes = {
   currentFilm: arrayOf(
     shape({
-      title: string.isRequired,
+      name: string.isRequired,
       videoLink: string.isRequired,
     }).isRequired,
   ),

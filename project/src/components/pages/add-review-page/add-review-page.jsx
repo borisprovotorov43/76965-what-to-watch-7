@@ -59,7 +59,7 @@ AddReviewPage.propTypes = {
   currentFilm: arrayOf(
     shape({
       id: number.isRequired,
-      title: string.isRequired,
+      name: string.isRequired,
       background: string.isRequired,
       poster: string.isRequired,
     }).isRequired,
