@@ -7,7 +7,6 @@ const initialState = {
   films: [],
   similarFilms: [],
   currentGenre: DEFAULT_GENGE,
-  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +20,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         films: camelize(action.payload),
-        isDataLoaded: true,
       };
     case ActionType.LOAD_PROMO_FILMS:
       return {

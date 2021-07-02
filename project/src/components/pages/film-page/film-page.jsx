@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import { filmPropTypes } from '../../../prop-types/films';
 import PageFooter from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
 import FilmList from '../../film-list/film-list';
 import NotFoundPage from '../not-found-page/not-found-page';
 
-import { AppRoute } from '../../../const';
+import { APP_ROUTES } from '../../../const';
 import { getRatingName } from '../../../utils';
 import { fetchSimilarFilms } from '../../../store/api-actions';
 
@@ -69,7 +69,7 @@ function FilmPage({
                     </svg>
                     <span>My list</span>
                   </button>
-                  <Link to={`${AppRoute.FILMS}/${id}${AppRoute.REVIEW}`} className="btn film-card__button">Add review</Link>
+                  <Link to={`${APP_ROUTES.FILMS}/${id}${APP_ROUTES.REVIEW}`} className="btn film-card__button">Add review</Link>
                 </div>
               </div>
             </div>
@@ -129,25 +129,12 @@ function FilmPage({
   return <NotFoundPage />;
 }
 
-const { string, number, array, func, arrayOf, shape } = PropTypes;
+const { array, func } = PropTypes;
 
 FilmPage.propTypes = {
   similarFilms: array.isRequired,
   onFetchSimilarFilms: func.isRequired,
-  currentFilm: arrayOf(
-    shape({
-      name: string.isRequired,
-      description: string.isRequired,
-      backgroundImage: string.isRequired,
-      posterImage: string.isRequired,
-      released: number.isRequired,
-      genre: string.isRequired,
-      director: string.isRequired,
-      rating: number.isRequired,
-      scoresCount: number.isRequired,
-      starring: array.isRequired,
-    }).isRequired,
-  ),
+  currentFilm: filmPropTypes,
 };
 
 const mapDispatchToProps = (dispatch) => ({

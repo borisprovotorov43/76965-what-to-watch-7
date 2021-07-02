@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { promofilmPropTypes } from '../../prop-types/promoFilm';
 import PageHeader from '../page-header/page-header';
 
 function FilmCard({ promoFilm }) {
@@ -48,16 +48,8 @@ function FilmCard({ promoFilm }) {
   );
 }
 
-const { string, shape } = PropTypes;
-
 FilmCard.propTypes = {
-  promoFilm: shape({
-    name: string,
-    genre: string,
-    date: string,
-    backgroundImage: string,
-    posterImage: string,
-  }),
+  promoFilm: promofilmPropTypes,
 };
 
 export default FilmCard;

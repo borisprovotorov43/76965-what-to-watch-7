@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { filmPropTypes } from '../../prop-types/films';
 import SmallFilmCard from '../small-film-card/small-film-card';
 import Spinner from '../spinner/spinner';
 
-function FilmList({ films, isDataLoaded }) {
+function FilmList({ films }) {
   const [activeFilm, setActiveFilm] = useState(0);
   const handleActiveFilmSet = (value) => setActiveFilm(value);
 
-  if (!isDataLoaded) {
+  if (films.length > 0) {
     return (
-      <Spinner />
-    );
-  }
-
-  return (
-    <div className="catalog__films-list">
-      {
-        films.map(({ id, name, previewImage, previewVideoLink }) => (
+      <div className="catalog__films-list">
+        {films.map(({ id, name, previewImage, previewVideoLink }) => (
           <SmallFilmCard
             id={id}
             key={`pc${id}`}
@@ -27,29 +20,16 @@ function FilmList({ films, isDataLoaded }) {
             activeFilm={activeFilm}
             previewVideoLink={previewVideoLink}
           />
-        ))
-      }
-    </div>
-  );
+        ))}
+      </div>
+    );
+  }
+
+  return <Spinner />;
 }
 
-const { string, number, bool, shape, arrayOf } = PropTypes;
-
 FilmList.propTypes = {
-  films: arrayOf(
-    shape({
-      id: number.isRequired,
-      name: string.isRequired,
-      previewImage: string.isRequired,
-      previewVideoLink: string.isRequired,
-    }),
-  ).isRequired,
-  isDataLoaded: bool.isRequired,
+  films: filmPropTypes,
 };
 
-const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded,
-});
-
-
-export default connect(mapStateToProps, null)(FilmList);
+export default FilmList;

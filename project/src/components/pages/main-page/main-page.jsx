@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { filmPropTypes } from '../../../prop-types/films';
+import { promofilmPropTypes } from '../../../prop-types/promoFilm';
+
 import PageFooter from '../../page-footer/page-footer';
 import FilmCard from '../../film-card/film-card';
 import FilmList from '../../film-list/film-list';
@@ -33,34 +35,10 @@ const mapStateToProps = ({ films, currentGenre, promoFilm }) => ({
   films: (currentGenre === DEFAULT_GENGE) ? films : getFilmsByGenre(films, currentGenre),
 });
 
-const { string, number, array, arrayOf, shape } = PropTypes;
-
 MainPage.propTypes = {
-  promoFilm: shape({
-    name: string,
-    genre: string,
-    date: string,
-    backgroundImage: string,
-    posterImage: string,
-  }),
-  films: arrayOf(
-    shape({
-      id: number.isRequired,
-      name: string.isRequired,
-      description: string.isRequired,
-      previewImage: string.isRequired,
-      backgroundImage: string.isRequired,
-      posterImage: string.isRequired,
-      released: number.isRequired,
-      genre: string.isRequired,
-      director: string.isRequired,
-      rating: number.isRequired,
-      scoresCount: number.isRequired,
-      starring: array.isRequired,
-    }),
-  ).isRequired,
+  promoFilm: promofilmPropTypes,
+  films: filmPropTypes,
 };
 
 export { MainPage };
 export default connect(mapStateToProps)(MainPage);
-
