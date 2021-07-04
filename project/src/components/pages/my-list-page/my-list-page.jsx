@@ -30,9 +30,9 @@ const { string, number, arrayOf, shape } = PropTypes;
 MyListPage.propTypes = {
   films: arrayOf(
     shape({
-      id: number.isRequired,
-      title: string.isRequired,
-      image: string.isRequired,
+      id: number,
+      name: string,
+      posterImage: string,
     }),
   ).isRequired,
 };

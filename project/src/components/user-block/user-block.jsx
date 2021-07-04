@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { APP_ROUTES } from '../../const';
 
 function UserBlock() {
   return (
@@ -11,7 +11,7 @@ function UserBlock() {
         </div>
       </li>
       <li className="user-block__item">
-        <Link to={AppRoute.LOGIN} className="user-block__link">Sign out</Link>
+        <Link to={APP_ROUTES.LOGIN} className="user-block__link">Sign out</Link>
       </li>
     </ul>
   );

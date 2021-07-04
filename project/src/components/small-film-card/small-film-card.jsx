@@ -2,10 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { APP_ROUTES } from '../../const';
 import VideoPlayer from '../video-player/video-player';
 
-function SmallFilmCard({ id, title, image, onActiveFilmSet, activeFilm, videoLink }) {
+function SmallFilmCard({ id, name, previewImage, onActiveFilmSet, activeFilm, previewVideoLink }) {
   const handleMouseEnter = () => onActiveFilmSet(id);
   const handleMouseLeave = () => onActiveFilmSet(0);
 
@@ -17,11 +17,11 @@ function SmallFilmCard({ id, title, image, onActiveFilmSet, activeFilm, videoLin
     >
       <div className="small-film-card__image">
         {activeFilm !== id
-          ? <img src={image} alt={title} width="280" height="175" />
-          : <VideoPlayer source={videoLink} />}
+          ? <img src={previewImage} alt={name} width="280" height="175" />
+          : <VideoPlayer source={previewVideoLink} />}
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`${AppRoute.FILMS}/${id}`}>{title}</Link>
+        <Link className="small-film-card__link" to={`${APP_ROUTES.FILMS}/${id}`}>{name}</Link>
       </h3>
     </article>
   );
@@ -31,9 +31,9 @@ const { string, number, func } = PropTypes;
 
 SmallFilmCard.propTypes = {
   id: number.isRequired,
-  title: string.isRequired,
-  image: string.isRequired,
-  videoLink: string.isRequired,
+  name: string.isRequired,
+  previewImage: string.isRequired,
+  previewVideoLink: string.isRequired,
   onActiveFilmSet: func.isRequired,
   activeFilm: number.isRequired,
 };

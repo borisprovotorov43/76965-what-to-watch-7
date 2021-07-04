@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { filmPropTypes } from '../../../prop-types/films';
 
 import Logo from '../../logo/logo';
 import AddReviewsFrom from '../../add-review-form/add-reviews-form';
 import NotFoundPage from '../not-found-page/not-found-page';
 import UserBlock from '../../user-block/user-block';
 
-import { AppRoute } from '../../../const';
+import { APP_ROUTES } from '../../../const';
 
 function AddReviewPage({ currentFilm }) {
   const { id } = useParams();
 
-  if (currentFilm) {
-    const { title, background, poster } = currentFilm[0];
+  if (currentFilm.length > 0) {
+    const { name, backgroundImage, posterImage } = currentFilm[0];
 
     return (
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src={background} alt={title} />
+            <img src={backgroundImage} alt={name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -29,7 +29,7 @@ function AddReviewPage({ currentFilm }) {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={`${AppRoute.FILMS}/${id}`} className="breadcrumbs__link">{title}</Link>
+                  <Link to={`${APP_ROUTES.FILMS}/${id}`} className="breadcrumbs__link">{name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -41,7 +41,7 @@ function AddReviewPage({ currentFilm }) {
           </header>
 
           <div className="film-card__poster film-card__poster--small">
-            <img src={poster} alt={title} width="218" height="327" />
+            <img src={posterImage} alt={name} width="218" height="327" />
           </div>
         </div>
 
@@ -53,17 +53,8 @@ function AddReviewPage({ currentFilm }) {
   return <NotFoundPage />;
 }
 
-const { string, number, arrayOf, shape } = PropTypes;
-
 AddReviewPage.propTypes = {
-  currentFilm: arrayOf(
-    shape({
-      id: number.isRequired,
-      title: string.isRequired,
-      background: string.isRequired,
-      poster: string.isRequired,
-    }).isRequired,
-  ),
+  currentFilm: filmPropTypes,
 };
 
 export default AddReviewPage;

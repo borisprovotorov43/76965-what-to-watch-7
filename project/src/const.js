@@ -1,4 +1,4 @@
-export const AppRoute = {
+export const APP_ROUTES = {
   ROOT: '/',
   LOGIN: '/login',
   MY_LIST: '/mylist',
@@ -7,6 +7,12 @@ export const AppRoute = {
   DEV_FILM: '/films/:id',
   DEV_ADD_REVIEW: '/films/:id/review',
   DEV_PLAYER: '/player/:id',
+};
+
+export const API_ROUTES = {
+  FILM_PROMO: '/promo',
+  FILMS: '/films',
+  FILMS_SIMILAR: '/similar',
 };
 
 export const RAITIND_DEFAULT = 8;

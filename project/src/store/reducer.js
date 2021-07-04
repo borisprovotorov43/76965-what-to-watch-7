@@ -1,9 +1,11 @@
 import { ActionType } from './action';
 import { DEFAULT_GENGE } from './../const';
-import { FILMS } from './../mocks/films';
+import camelize from 'camelize';
 
 const initialState = {
-  films: FILMS,
+  promoFilm: {},
+  films: [],
+  similarFilms: [],
   currentGenre: DEFAULT_GENGE,
 };
 
@@ -13,6 +15,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentGenre: action.payload,
+      };
+    case ActionType.LOAD_FILMS:
+      return {
+        ...state,
+        films: camelize(action.payload),
+      };
+    case ActionType.LOAD_PROMO_FILMS:
+      return {
+        ...state,
+        promoFilm: camelize(action.payload),
+      };
+    case ActionType.LOAD_SIMILAR_FILMS:
+      return {
+        ...state,
+        similarFilms: camelize(action.payload),
       };
     default:
       return state;

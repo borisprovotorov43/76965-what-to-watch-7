@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { filmPropTypes } from '../../prop-types/films';
 import cx from 'classnames';
-import { ActionCreator } from '../../store/action';
+import { changeGenre } from '../../store/action';
 
 function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
   const genres = [defaultGenge, ...new Set(films.map(({ genre }) => genre))];
@@ -14,7 +15,7 @@ function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
 
   return (
     <ul className="catalog__genres-list">
-      {genres.map((genre) => (
+      {genres && genres.map((genre) => (
         <li
           key={`genre-${genre}`}
           className={cx('catalog__genres-item', { 'catalog__genres-item--active': genre === currentGenre })}
@@ -39,23 +40,16 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeGenre(genre) {
-    dispatch(ActionCreator.changeGenre({
+    dispatch(changeGenre({
       payload: genre,
     }));
   },
 });
 
-const { arrayOf, shape, number, string, func } = PropTypes;
+const { string, func } = PropTypes;
 
 GenreList.propTypes = {
-  films: arrayOf(
-    shape({
-      id: number.isRequired,
-      title: string.isRequired,
-      image: string.isRequired,
-      videoLink: string.videoLink,
-    }),
-  ).isRequired,
+  films: filmPropTypes,
   currentGenre: string.isRequired,
   defaultGenge: string.isRequired,
   onChangeGenre: func.isRequired,

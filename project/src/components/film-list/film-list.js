@@ -1,41 +1,35 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { filmPropTypes } from '../../prop-types/films';
 import SmallFilmCard from '../small-film-card/small-film-card';
+import Spinner from '../spinner/spinner';
 
 function FilmList({ films }) {
   const [activeFilm, setActiveFilm] = useState(0);
   const handleActiveFilmSet = (value) => setActiveFilm(value);
 
-  return (
-    <div className="catalog__films-list">
-      {
-        films.map(({ id, title, image, videoLink }) => (
+  if (films.length > 0) {
+    return (
+      <div className="catalog__films-list">
+        {films.map(({ id, name, previewImage, previewVideoLink }) => (
           <SmallFilmCard
             id={id}
             key={`pc${id}`}
-            title={title}
-            image={image}
+            name={name}
+            previewImage={previewImage}
             onActiveFilmSet={handleActiveFilmSet}
             activeFilm={activeFilm}
-            videoLink={videoLink}
+            previewVideoLink={previewVideoLink}
           />
-        ))
-      }
-    </div>
-  );
+        ))}
+      </div>
+    );
+  }
+
+  return <Spinner />;
 }
 
-const { string, number, shape, arrayOf } = PropTypes;
-
 FilmList.propTypes = {
-  films: arrayOf(
-    shape({
-      id: number.isRequired,
-      title: string.isRequired,
-      image: string.isRequired,
-      videoLink: string.videoLink,
-    }),
-  ).isRequired,
+  films: filmPropTypes,
 };
 
 export default FilmList;
