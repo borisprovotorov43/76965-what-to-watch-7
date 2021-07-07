@@ -17,7 +17,7 @@ function MyListPage({ films }) {
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmList films={films} />12
+        <FilmList films={films} />
       </section>
 
       <PageFooter />

@@ -3,6 +3,10 @@ export const ActionType = {
   LOAD_PROMO_FILMS: 'LOAD_PROMO_FILMS',
   LOAD_FILMS: 'LOAD_FILMS',
   LOAD_SIMILAR_FILMS: 'LOAD_SIMILAR_FILMS',
+  LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT',
+  REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
+  REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
 };
 
 export function changeGenre (action) {
@@ -33,3 +37,29 @@ export function loadSimilarFilms (action) {
   };
 }
 
+export function requireAuthorization (action) {
+  return {
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: action,
+  };
+}
+
+export function login (action) {
+  return {
+    type: ActionType.LOGIN,
+    payload: action,
+  };
+}
+
+export function logout () {
+  return {
+    type: ActionType.LOGOUT,
+  };
+}
+
+export function redirectToRoute (url) {
+  return {
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
+  };
+}

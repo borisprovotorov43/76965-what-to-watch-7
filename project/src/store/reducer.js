@@ -1,5 +1,5 @@
 import { ActionType } from './action';
-import { DEFAULT_GENGE } from './../const';
+import { DEFAULT_GENGE, AUTHORIZATION_STATUS } from './../const';
 import camelize from 'camelize';
 
 const initialState = {
@@ -7,6 +7,11 @@ const initialState = {
   films: [],
   similarFilms: [],
   currentGenre: DEFAULT_GENGE,
+  authorizationStatus: AUTHORIZATION_STATUS.UNKNOWN,
+  userData: {
+    login: '',
+    avatarUrl: '',
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +35,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         similarFilms: camelize(action.payload),
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+    case ActionType.LOGIN:
+      return {
+        ...state,
+        userData: action.payload,
+      };
+    case ActionType.LOGOUT:
+      return {
+        ...state,
+        authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
       };
     default:
       return state;

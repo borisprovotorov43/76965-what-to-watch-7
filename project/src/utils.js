@@ -1,3 +1,5 @@
+import { AUTHORIZATION_STATUS } from './const';
+
 export function getRatingName(ratingNumber) {
   if (ratingNumber === 10) {
     return 'Awesome';
@@ -19,3 +21,8 @@ export function getCurrentFilm(films, id) {
 export function getFilmsByGenre(films, currentGenre) {
   return films.filter((item) => item.genre === currentGenre);
 }
+
+export function isCheckoutAuth (authorizationStatus) {
+  return authorizationStatus === AUTHORIZATION_STATUS.UNKNOWN;
+}
+

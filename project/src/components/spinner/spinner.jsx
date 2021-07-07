@@ -3,7 +3,9 @@ import './spinner.css';
 
 function Spinner() {
   return (
-    <div className="lds-dual-ring"></div>
+    <div className="lds-wrap">
+      <div className="lds-dual-ring"></div>
+    </div>
   );
 }
 

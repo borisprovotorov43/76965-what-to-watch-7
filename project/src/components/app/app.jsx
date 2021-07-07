@@ -1,32 +1,50 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Route, Switch, Router as BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import { filmPropTypes } from '../../prop-types/films';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { APP_ROUTES } from '../../const';
-import { getCurrentFilm } from '../../utils';
+import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../const';
+
+import { getCurrentFilm, isCheckoutAuth } from '../../utils';
+
 import MainPage from '../pages/main-page/main-page';
 import SignInPage from '../pages/sign-in-page/sign-in-page';
 import MyListPage from '../pages/my-list-page/my-list-page';
 import FilmPage from '../pages/film-page/film-page';
 import AddReviewPage from '../pages/add-review-page/add-review-page';
 import PlayerPage from '../pages/player-page/player-page';
+import PrivateRoute from '../private-route/private-route';
+import Spinner from '../spinner/spinner';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
-function App({ films, mylist }) {
+import browserHistory from '../../browser-history';
+
+function App({ films, mylist, authorizationStatus }) {
+
+  if (isCheckoutAuth(authorizationStatus)) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route  path={APP_ROUTES.ROOT} exact>
+        <Route path={APP_ROUTES.ROOT} exact>
           <MainPage />
         </Route>
         <Route path={APP_ROUTES.LOGIN} exact>
-          <SignInPage />
+          <SignInPage authorizationStatus={authorizationStatus} />
         </Route>
-        <Route path={APP_ROUTES.MY_LIST} exact>
-          <MyListPage films={mylist} />
-        </Route>
+        <PrivateRoute
+          path={APP_ROUTES.MY_LIST}
+          exact
+          render={
+            () => <MyListPage films={mylist} />
+          }
+        >
+        </PrivateRoute>
         <Route
           path={APP_ROUTES.DEV_FILM}
           exact
@@ -39,7 +57,7 @@ function App({ films, mylist }) {
             );
           }}
         />
-        <Route
+        <PrivateRoute
           path={APP_ROUTES.DEV_ADD_REVIEW}
           exact
           render={({ match: { params: { id } } }) => {
@@ -50,7 +68,8 @@ function App({ films, mylist }) {
               />
             );
           }}
-        />
+        >
+        </PrivateRoute>
         <Route
           path={APP_ROUTES.DEV_PLAYER}
           exact
@@ -71,7 +90,7 @@ function App({ films, mylist }) {
   );
 }
 
-const { string, number, shape, arrayOf } = PropTypes;
+const { string, number, shape, arrayOf, oneOf } = PropTypes;
 
 App.propTypes = {
   films: filmPropTypes,
@@ -82,10 +101,12 @@ App.propTypes = {
       image: string.isRequired,
     }),
   ).isRequired,
+  authorizationStatus: oneOf(Object.values(AUTHORIZATION_STATUS)),
 };
 
 const mapStateToProps = (state) => ({
   films: state.films,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export default connect(mapStateToProps, null)(App);
