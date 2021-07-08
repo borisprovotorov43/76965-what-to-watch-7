@@ -334,6 +334,7 @@ body {
   background-color: #ffffff;
   margin: 0;
   min-width: 1000px;
+  height: 100vh;
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -547,6 +548,7 @@ main {
     display: block; }
 
 .catalog__films-list {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

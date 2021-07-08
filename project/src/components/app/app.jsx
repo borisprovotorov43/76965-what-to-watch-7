@@ -20,12 +20,10 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import browserHistory from '../../browser-history';
 
-function App({ films, mylist, authorizationStatus }) {
+function App({ films, mylist, authorizationStatus, isDataLoaded }) {
 
-  if (isCheckoutAuth(authorizationStatus)) {
-    return (
-      <Spinner />
-    );
+  if (isDataLoaded) {
+    return <Spinner />;
   }
 
   return (
@@ -90,7 +88,7 @@ function App({ films, mylist, authorizationStatus }) {
   );
 }
 
-const { string, number, shape, arrayOf, oneOf } = PropTypes;
+const { string, number, shape, arrayOf, oneOf, bool } = PropTypes;
 
 App.propTypes = {
   films: filmPropTypes,
@@ -102,11 +100,13 @@ App.propTypes = {
     }),
   ).isRequired,
   authorizationStatus: oneOf(Object.values(AUTHORIZATION_STATUS)),
+  isDataLoaded: bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({ films, authorizationStatus }) => ({
+  films: films,
+  authorizationStatus: authorizationStatus,
+  isDataLoaded: (isCheckoutAuth(authorizationStatus) || films.length === 0),
 });
 
 export default connect(mapStateToProps, null)(App);
