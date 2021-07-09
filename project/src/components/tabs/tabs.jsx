@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { arrayOf } from 'prop-types';
+import cx from 'classnames';
 import { filmPropTypes } from '../../prop-types/film';
 import { REVIEWS } from '../../mocks/reviews';
-import cx from 'classnames';
 
 import { TAB_DEFAULT, TABS_LIST } from '../../const';
 import TabOverview from '../tab-overview/tab-overview';

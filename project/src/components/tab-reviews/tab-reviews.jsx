@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf } from 'prop-types';
 import { filmPropTypes } from '../../prop-types/film';
 import { reviewsTypes } from '../../prop-types/reviews';
 import Review from '../review/review';
@@ -15,14 +15,12 @@ function TabReviews({ film: { id }, reviews}) {
         {filmReviews.map((review) => (
           <Review
             review={review}
-            key={String(review.user.id) + review.date}
+            key={`review-${review.id}`}
           />))}
       </div>
     </div>
   );
 }
-
-const { arrayOf } = PropTypes;
 
 TabReviews.propTypes = {
   film: filmPropTypes,
