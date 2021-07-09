@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-const { string, number, arrayOf, shape } = PropTypes;
+import { string, number, arrayOf, shape } from 'prop-types';
 
 export const filmPropTypes = shape({
   id: number.isRequired,

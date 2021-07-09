@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf } from 'prop-types';
 import { filmPropTypes } from '../../prop-types/film';
 import { REVIEWS } from '../../mocks/reviews';
 import cx from 'classnames';
@@ -17,6 +17,19 @@ function Tabs({ film }) {
   const handleActiveTabSet = (evt, tabName) => {
     evt.preventDefault();
     setActiveTab(tabName);
+  };
+
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case tabOverview:
+        return <TabOverview film={currentFilm} />;
+      case tabDetails:
+        return <TabDetails film={currentFilm} />;
+      case tabReviews:
+        return <TabReviews film={currentFilm} reviews={REVIEWS} />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -39,16 +52,10 @@ function Tabs({ film }) {
           ))}
         </ul>
       </nav>
-
-      {activeTab === tabOverview && <TabOverview film={currentFilm} />}
-      {activeTab === tabDetails && <TabDetails film={currentFilm} />}
-      {activeTab === tabReviews && <TabReviews film={currentFilm} reviews={REVIEWS} />}
-
+      {renderActiveTab()}
     </div>
   );
 }
-
-const { arrayOf } = PropTypes;
 
 Tabs.propTypes = {
   film: arrayOf(filmPropTypes),

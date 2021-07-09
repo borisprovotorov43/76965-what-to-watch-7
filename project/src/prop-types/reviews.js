@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-const { string, number, shape } = PropTypes;
+import { string, number, shape } from 'prop-types';
 
 export const reviewsTypes = shape({
   id: number.isRequired,

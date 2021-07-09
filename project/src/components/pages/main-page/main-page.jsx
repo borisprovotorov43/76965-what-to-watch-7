@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { filmPropTypes } from '../../../prop-types/film';
 import { promofilmPropTypes } from '../../../prop-types/promoFilm';
@@ -35,8 +35,6 @@ const mapStateToProps = ({ films, currentGenre, promoFilm }) => ({
   promoFilm: promoFilm,
   films: (currentGenre === DEFAULT_GENGE) ? films : getFilmsByGenre(films, currentGenre),
 });
-
-const { arrayOf } = PropTypes;
 
 MainPage.propTypes = {
   promoFilm: promofilmPropTypes,

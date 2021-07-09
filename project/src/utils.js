@@ -28,8 +28,8 @@ export function getFilmsByGenre(films, currentGenre) {
   return films.filter((item) => item.genre === currentGenre);
 }
 
-export function getFilmReviews(reviews, id) {
-  return reviews.filter((item) => item.id === id);
+export function getFilmReviews(reviews, filmId) {
+  return reviews.filter((item) => item.id === filmId);
 }
 
 export function isCheckoutAuth(authorizationStatus) {

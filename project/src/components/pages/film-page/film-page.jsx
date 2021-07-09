@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { array, func, arrayOf } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { filmPropTypes } from '../../../prop-types/film';
@@ -92,8 +92,6 @@ function FilmPage({
   }
   return <NotFoundPage />;
 }
-
-const { array, func, arrayOf } = PropTypes;
 
 FilmPage.propTypes = {
   similarFilms: array.isRequired,

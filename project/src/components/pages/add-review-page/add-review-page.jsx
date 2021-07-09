@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { filmPropTypes } from '../../../prop-types/film';
 
@@ -53,8 +53,6 @@ function AddReviewPage({ currentFilm }) {
 
   return <NotFoundPage />;
 }
-
-const { arrayOf } = PropTypes;
 
 AddReviewPage.propTypes = {
   currentFilm: arrayOf(filmPropTypes),
