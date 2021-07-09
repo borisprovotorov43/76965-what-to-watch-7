@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { filmPropTypes } from '../../prop-types/films';
+import PropTypes from 'prop-types';
+import { filmPropTypes } from '../../prop-types/film';
 import SmallFilmCard from '../small-film-card/small-film-card';
 import Spinner from '../spinner/spinner';
 
@@ -28,8 +29,10 @@ function FilmList({ films }) {
   return <Spinner />;
 }
 
+const { arrayOf } = PropTypes;
+
 FilmList.propTypes = {
-  films: filmPropTypes,
+  films: arrayOf(filmPropTypes),
 };
 
 export default FilmList;
