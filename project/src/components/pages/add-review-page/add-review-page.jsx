@@ -1,6 +1,7 @@
 import React from 'react';
+import { arrayOf } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
-import { filmPropTypes } from '../../../prop-types/films';
+import { filmPropTypes } from '../../../prop-types/film';
 
 import Logo from '../../logo/logo';
 import AddReviewsFrom from '../../add-review-form/add-reviews-form';
@@ -54,7 +55,7 @@ function AddReviewPage({ currentFilm }) {
 }
 
 AddReviewPage.propTypes = {
-  currentFilm: filmPropTypes,
+  currentFilm: arrayOf(filmPropTypes),
 };
 
 export default AddReviewPage;
