@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { string, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -8,6 +8,10 @@ import { changeGenre, resetFilmPerPage } from '../../store/action';
 
 function GenreList({ films, onChangeGenre, onResetFilmPerPage, currentGenre, defaultGenge }) {
   const genres = [defaultGenge, ...new Set(films.map(({ genre }) => genre))];
+
+  useEffect(()=>{
+    onResetFilmPerPage();
+  },[onResetFilmPerPage]);
 
   const handleFilmsFilteredClick = (evt, genre) => {
     evt.preventDefault();

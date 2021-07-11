@@ -6,9 +6,9 @@ import SmallFilmCard from '../small-film-card/small-film-card';
 import Spinner from '../spinner/spinner';
 import ShowMore from '../show-more/show-more';
 
-import { changeFilmPerPage } from '../../store/action';
+import { changeFilmPerPage, resetFilmPerPage } from '../../store/action';
 
-function FilmList({ films, filmsPerPage, onChangeFilmPerPage }) {
+function FilmList({ films, filmsPerPage, onChangeFilmPerPage, onResetFilmPerPage }) {
   const [activeFilm, setActiveFilm] = useState(0);
   const [filmsFiltered, setFilmFiltered] = useState([]);
   const [isShowMoreVisible, setShowMoreVisible] = useState(true);
@@ -59,12 +59,16 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeFilmPerPage() {
     dispatch(changeFilmPerPage());
   },
+  onResetFilmPerPage() {
+    dispatch(resetFilmPerPage());
+  },
 });
 
 FilmList.propTypes = {
   films: arrayOf(filmPropTypes),
   filmsPerPage: number.isRequired,
   onChangeFilmPerPage: func.isRequired,
+  onResetFilmPerPage: func.isRequired,
 };
 
 export { FilmList };
