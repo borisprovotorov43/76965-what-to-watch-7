@@ -1,10 +1,11 @@
 import { ActionType } from './action';
-import { DEFAULT_GENGE, AUTHORIZATION_STATUS } from './../const';
+import { DEFAULT_GENGE, AUTHORIZATION_STATUS, FILMS_PER_PAGE } from './../const';
 import camelize from 'camelize';
 
 const initialState = {
   promoFilm: {},
   films: [],
+  filmsPerPage: FILMS_PER_PAGE,
   similarFilms: [],
   currentGenre: DEFAULT_GENGE,
   authorizationStatus: AUTHORIZATION_STATUS.UNKNOWN,
@@ -20,6 +21,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentGenre: action.payload,
+      };
+    case ActionType.CHANGE_FILMS_PER_PAGE:
+      return {
+        ...state,
+        filmsPerPage: state.filmsPerPage + FILMS_PER_PAGE,
+      };
+    case ActionType.RESET_FILMS_PER_PAGE:
+      return {
+        ...state,
+        filmsPerPage: FILMS_PER_PAGE,
       };
     case ActionType.LOAD_FILMS:
       return {

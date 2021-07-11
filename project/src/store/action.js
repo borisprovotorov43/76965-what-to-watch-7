@@ -1,5 +1,7 @@
 export const ActionType = {
   CHANGE_GENRE: 'CHANGE_GENRE',
+  CHANGE_FILMS_PER_PAGE: 'CHANG_FILMS_PER_PAGE',
+  RESET_FILMS_PER_PAGE: 'RESET_FILMS_PER_PAGE',
   LOAD_PROMO_FILMS: 'LOAD_PROMO_FILMS',
   LOAD_FILMS: 'LOAD_FILMS',
   LOAD_SIMILAR_FILMS: 'LOAD_SIMILAR_FILMS',
@@ -13,6 +15,18 @@ export function changeGenre (action) {
   return {
     type: ActionType.CHANGE_GENRE,
     payload: action.payload,
+  };
+}
+
+export function changeFilmPerPage () {
+  return {
+    type: ActionType.CHANGE_FILMS_PER_PAGE,
+  };
+}
+
+export function resetFilmPerPage () {
+  return {
+    type: ActionType.RESET_FILMS_PER_PAGE,
   };
 }
 

@@ -4,14 +4,15 @@ import { connect } from 'react-redux';
 
 import { filmPropTypes } from '../../prop-types/film';
 import cx from 'classnames';
-import { changeGenre } from '../../store/action';
+import { changeGenre, resetFilmPerPage } from '../../store/action';
 
-function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
+function GenreList({ films, onChangeGenre, onResetFilmPerPage, currentGenre, defaultGenge }) {
   const genres = [defaultGenge, ...new Set(films.map(({ genre }) => genre))];
 
   const handleFilmsFilteredClick = (evt, genre) => {
     evt.preventDefault();
     onChangeGenre(genre);
+    onResetFilmPerPage();
   };
 
   return (
@@ -45,6 +46,9 @@ const mapDispatchToProps = (dispatch) => ({
       payload: genre,
     }));
   },
+  onResetFilmPerPage() {
+    dispatch(resetFilmPerPage());
+  },
 });
 
 GenreList.propTypes = {
@@ -52,6 +56,7 @@ GenreList.propTypes = {
   currentGenre: string.isRequired,
   defaultGenge: string.isRequired,
   onChangeGenre: func.isRequired,
+  onResetFilmPerPage: func.isRequired,
 };
 
 export { GenreList };

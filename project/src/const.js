@@ -20,7 +20,8 @@ export const API_ROUTES = {
 export const TAB_DEFAULT = 'Overview';
 export const TABS_LIST = ['Overview', 'Details', 'Reviews'];
 
-export const RAITIND_DEFAULT = 8;
+export const RAITING_DEFAULT = 8;
+export const FILMS_PER_PAGE = 8;
 export const MAX_RAITING_VALUE = 10;
 export const DEFAULT_GENGE = 'All genres';
 
