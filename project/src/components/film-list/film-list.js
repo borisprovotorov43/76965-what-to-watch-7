@@ -8,11 +8,11 @@ import ShowMore from '../show-more/show-more';
 
 function FilmList({ films }) {
   const [activeFilm, setActiveFilm] = useState(0);
-  const [filmsPageCounter, setFilmPerPage] = useState(1);
+  const [filmsPageCounter, setFilmsPageCounter] = useState(1);
 
   const handleActiveFilmSet = (value) => setActiveFilm(value);
   const handleShowMoreClick = () => {
-    setFilmPerPage((prev) => prev + 1);
+    setFilmsPageCounter((prev) => prev + 1);
   };
 
   const filmsFiltered = films.slice(0, (filmsPageCounter * FILMS_PER_PAGE));
