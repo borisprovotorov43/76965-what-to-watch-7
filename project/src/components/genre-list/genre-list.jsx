@@ -1,22 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { string, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 
 import { filmPropTypes } from '../../prop-types/film';
 import cx from 'classnames';
-import { changeGenre, resetFilmPerPage } from '../../store/action';
+import { changeGenre } from '../../store/action';
 
-function GenreList({ films, onChangeGenre, onResetFilmPerPage, currentGenre, defaultGenge }) {
+function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
   const genres = [defaultGenge, ...new Set(films.map(({ genre }) => genre))];
-
-  useEffect(()=>{
-    onResetFilmPerPage();
-  },[onResetFilmPerPage]);
 
   const handleFilmsFilteredClick = (evt, genre) => {
     evt.preventDefault();
     onChangeGenre(genre);
-    onResetFilmPerPage();
   };
 
   return (
@@ -50,9 +45,6 @@ const mapDispatchToProps = (dispatch) => ({
       payload: genre,
     }));
   },
-  onResetFilmPerPage() {
-    dispatch(resetFilmPerPage());
-  },
 });
 
 GenreList.propTypes = {
@@ -60,7 +52,6 @@ GenreList.propTypes = {
   currentGenre: string.isRequired,
   defaultGenge: string.isRequired,
   onChangeGenre: func.isRequired,
-  onResetFilmPerPage: func.isRequired,
 };
 
 export { GenreList };

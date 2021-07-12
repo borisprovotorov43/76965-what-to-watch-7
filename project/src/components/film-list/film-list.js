@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { arrayOf, func, number } from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { arrayOf } from 'prop-types';
 import { filmPropTypes } from '../../prop-types/film';
+import { FILMS_PER_PAGE } from '../../const';
 import SmallFilmCard from '../small-film-card/small-film-card';
 import Spinner from '../spinner/spinner';
 import ShowMore from '../show-more/show-more';
 
-import { changeFilmPerPage, resetFilmPerPage } from '../../store/action';
-
-function FilmList({ films, filmsPerPage, onChangeFilmPerPage, onResetFilmPerPage }) {
+function FilmList({ films }) {
   const [activeFilm, setActiveFilm] = useState(0);
-  const [filmsFiltered, setFilmFiltered] = useState([]);
-  const [isShowMoreVisible, setShowMoreVisible] = useState(true);
-
-  useEffect(() => {
-    if (films.length > 0) {
-      setFilmFiltered(films.slice(0, filmsPerPage));
-      return (films.length <= filmsPerPage) ? setShowMoreVisible(false) : setShowMoreVisible(true);
-    }
-
-  }, [films, filmsPerPage]);
-
-  const handleShowMoreClick = () => {
-    onChangeFilmPerPage();
-  };
+  const [filmsPageCounter, setFilmPerPage] = useState(1);
 
   const handleActiveFilmSet = (value) => setActiveFilm(value);
+  const handleShowMoreClick = () => {
+    setFilmPerPage((prev) => prev + 1);
+  };
+
+  const filmsFiltered = films.slice(0, (filmsPageCounter * FILMS_PER_PAGE));
+  const isShowButtonShown = !(filmsFiltered.length >= films.length);
 
   if (filmsFiltered.length > 0) {
     return (
@@ -43,7 +34,7 @@ function FilmList({ films, filmsPerPage, onChangeFilmPerPage, onResetFilmPerPage
             />
           ))}
         </div>
-        {isShowMoreVisible && <ShowMore onHandleShowMoreClick={handleShowMoreClick} />}
+        {isShowButtonShown && <ShowMore onHandleShowMoreClick={handleShowMoreClick} />}
       </>
     );
   }
@@ -51,25 +42,8 @@ function FilmList({ films, filmsPerPage, onChangeFilmPerPage, onResetFilmPerPage
   return <Spinner />;
 }
 
-const mapStateToProps = ({ filmsPerPage }) => ({
-  filmsPerPage: filmsPerPage,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeFilmPerPage() {
-    dispatch(changeFilmPerPage());
-  },
-  onResetFilmPerPage() {
-    dispatch(resetFilmPerPage());
-  },
-});
-
 FilmList.propTypes = {
   films: arrayOf(filmPropTypes),
-  filmsPerPage: number.isRequired,
-  onChangeFilmPerPage: func.isRequired,
-  onResetFilmPerPage: func.isRequired,
 };
 
-export { FilmList };
-export default connect(mapStateToProps, mapDispatchToProps)(FilmList);
+export default FilmList;

@@ -18,18 +18,6 @@ export function changeGenre (action) {
   };
 }
 
-export function changeFilmPerPage () {
-  return {
-    type: ActionType.CHANGE_FILMS_PER_PAGE,
-  };
-}
-
-export function resetFilmPerPage () {
-  return {
-    type: ActionType.RESET_FILMS_PER_PAGE,
-  };
-}
-
 export function loadPromoFilm (action) {
   return {
     type: ActionType.LOAD_PROMO_FILMS,
