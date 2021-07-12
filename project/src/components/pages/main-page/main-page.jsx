@@ -21,9 +21,6 @@ function MainPage({ films, promoFilm }) {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList defaultGenge={DEFAULT_GENGE} />
           <FilmList films={films} />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
         </section>
         <PageFooter className="catalog__button" />
       </div>
