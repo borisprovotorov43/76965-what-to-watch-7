@@ -1,7 +1,8 @@
 import React from 'react';
+import { string, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { filmPropTypes } from '../../prop-types/films';
+
+import { filmPropTypes } from '../../prop-types/film';
 import cx from 'classnames';
 import { changeGenre } from '../../store/action';
 
@@ -46,10 +47,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const { string, func } = PropTypes;
-
 GenreList.propTypes = {
-  films: filmPropTypes,
+  films: arrayOf(filmPropTypes),
   currentGenre: string.isRequired,
   defaultGenge: string.isRequired,
   onChangeGenre: func.isRequired,

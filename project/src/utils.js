@@ -14,6 +14,12 @@ export function getRatingName(ratingNumber) {
   }
 }
 
+export function getFormatedFilmRunTime(runTime) {
+  const hour = Math.floor(runTime / 60);
+  const minute = runTime - hour * 60;
+  return `${hour}h ${minute}m`;
+}
+
 export function getCurrentFilm(films, id) {
   return films.filter((item) => item.id === +id && item);
 }
@@ -22,7 +28,21 @@ export function getFilmsByGenre(films, currentGenre) {
   return films.filter((item) => item.genre === currentGenre);
 }
 
-export function isCheckoutAuth (authorizationStatus) {
+export function getFilmReviews(reviews, filmId) {
+  return reviews.filter((item) => item.id === filmId);
+}
+
+export function isCheckoutAuth(authorizationStatus) {
   return authorizationStatus === AUTHORIZATION_STATUS.UNKNOWN;
+}
+
+export function getReviewDate(date) {
+  return new Date(date).toLocaleDateString(
+    'en-US',
+    {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
 }
 

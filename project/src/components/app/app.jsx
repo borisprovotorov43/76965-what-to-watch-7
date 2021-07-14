@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Switch, Router as BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { filmPropTypes } from '../../prop-types/films';
+import { filmPropTypes } from '../../prop-types/film';
 import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../const';
 
 import { getCurrentFilm, isCheckoutAuth } from '../../utils';
@@ -91,7 +91,7 @@ function App({ films, mylist, authorizationStatus, isDataLoaded }) {
 const { string, number, shape, arrayOf, oneOf, bool } = PropTypes;
 
 App.propTypes = {
-  films: filmPropTypes,
+  films: arrayOf(filmPropTypes),
   mylist: arrayOf(
     shape({
       id: number.isRequired,

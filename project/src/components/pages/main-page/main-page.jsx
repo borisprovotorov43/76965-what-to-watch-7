@@ -1,6 +1,7 @@
 import React from 'react';
+import { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
-import { filmPropTypes } from '../../../prop-types/films';
+import { filmPropTypes } from '../../../prop-types/film';
 import { promofilmPropTypes } from '../../../prop-types/promoFilm';
 
 import PageFooter from '../../page-footer/page-footer';
@@ -20,9 +21,6 @@ function MainPage({ films, promoFilm }) {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList defaultGenge={DEFAULT_GENGE} />
           <FilmList films={films} />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
         </section>
         <PageFooter className="catalog__button" />
       </div>
@@ -37,7 +35,7 @@ const mapStateToProps = ({ films, currentGenre, promoFilm }) => ({
 
 MainPage.propTypes = {
   promoFilm: promofilmPropTypes,
-  films: filmPropTypes,
+  films: arrayOf(filmPropTypes),
 };
 
 export { MainPage };
