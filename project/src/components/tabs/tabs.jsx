@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { arrayOf } from 'prop-types';
+import { string } from 'prop-types';
 import cx from 'classnames';
 import { filmPropTypes } from '../../prop-types/film';
-import { REVIEWS } from '../../mocks/reviews';
 
 import { TAB_DEFAULT, TABS_LIST } from '../../const';
 import TabOverview from '../tab-overview/tab-overview';
 import TabDetails from '../tab-details/tab-details';
 import TabReviews from '../tab-reviews/tab-reviews';
 
-function Tabs({ film }) {
+function Tabs({ film, filmId }) {
   const [activeTab, setActiveTab] = useState(TAB_DEFAULT);
   const [ tabOverview, tabDetails, tabReviews] = TABS_LIST;
-  const [ currentFilm ] = film;
 
   const handleActiveTabSet = (evt, tabName) => {
     evt.preventDefault();
@@ -22,11 +20,11 @@ function Tabs({ film }) {
   const renderActiveTab = () => {
     switch (activeTab) {
       case tabOverview:
-        return <TabOverview film={currentFilm} />;
+        return <TabOverview film={film} />;
       case tabDetails:
-        return <TabDetails film={currentFilm} />;
+        return <TabDetails film={film} />;
       case tabReviews:
-        return <TabReviews film={currentFilm} reviews={REVIEWS} />;
+        return <TabReviews filmId={filmId} />;
       default:
         return null;
     }
@@ -58,7 +56,8 @@ function Tabs({ film }) {
 }
 
 Tabs.propTypes = {
-  film: arrayOf(filmPropTypes),
+  film: filmPropTypes,
+  filmId: string,
 };
 
 export default Tabs;

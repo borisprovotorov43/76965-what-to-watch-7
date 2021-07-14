@@ -5,7 +5,10 @@ import camelize from 'camelize';
 const initialState = {
   promoFilm: {},
   films: [],
+  currentFilm: null,
   similarFilms: [],
+  filmComments: [],
+  addCommentErrorCode: null,
   currentGenre: DEFAULT_GENGE,
   authorizationStatus: AUTHORIZATION_STATUS.UNKNOWN,
   userData: {
@@ -35,6 +38,26 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         similarFilms: camelize(action.payload),
+      };
+    case ActionType.LOAD_CURRENT_FILM:
+      return {
+        ...state,
+        currentFilm: camelize(action.payload),
+      };
+    case ActionType.LOAD_FILM_COMMENTS:
+      return {
+        ...state,
+        filmComments: action.payload,
+      };
+    case ActionType.ADD_COMMENT:
+      return {
+        ...state,
+        filmComments: action.payload,
+      };
+    case ActionType.ADD_COMMENT_ERROR:
+      return {
+        ...state,
+        addCommentErrorCode: action.payload,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {

@@ -15,6 +15,7 @@ export const API_ROUTES = {
   FILMS_SIMILAR: '/similar',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  COMMENTS: '/comments',
 };
 
 export const TAB_DEFAULT = 'Overview';

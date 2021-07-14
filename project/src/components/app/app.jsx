@@ -46,26 +46,14 @@ function App({ films, mylist, authorizationStatus, isDataLoaded }) {
         <Route
           path={APP_ROUTES.DEV_FILM}
           exact
-          render={({ match: { params: { id } } }) => {
-            const currentFilm = getCurrentFilm(films, id);
-            return (
-              <FilmPage
-                currentFilm={currentFilm}
-              />
-            );
-          }}
+          component={FilmPage}
         />
         <PrivateRoute
           path={APP_ROUTES.DEV_ADD_REVIEW}
           exact
-          render={({ match: { params: { id } } }) => {
-            const currentFilm = getCurrentFilm(films, id);
-            return (
-              <AddReviewPage
-                currentFilm={currentFilm}
-              />
-            );
-          }}
+          render={
+            () => <AddReviewPage />
+          }
         >
         </PrivateRoute>
         <Route

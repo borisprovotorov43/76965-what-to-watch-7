@@ -1,4 +1,5 @@
 import { AUTHORIZATION_STATUS } from './const';
+import { HttpCode } from './services/api';
 
 export function getRatingName(ratingNumber) {
   if (ratingNumber === 10) {
@@ -11,6 +12,17 @@ export function getRatingName(ratingNumber) {
     return 'Normal';
   } else {
     return 'Bad';
+  }
+}
+
+export function getErrorMessageText(errorCode) {
+  switch (errorCode) {
+    case HttpCode.BAD_REQUEST:
+      return 'Bad request to server';
+    case HttpCode.UNAUTHORIZED:
+      return 'Authorization is required';
+    default:
+      return 'Unknown error';
   }
 }
 

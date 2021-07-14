@@ -4,7 +4,8 @@ const BASE_URL = 'https://7.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 const token = localStorage.getItem('token') ?? '';
 
-const HttpCode = {
+export const HttpCode = {
+  BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
 };
 
