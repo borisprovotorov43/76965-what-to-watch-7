@@ -1,36 +1,38 @@
 import React, { useEffect } from 'react';
-import { array, func, arrayOf } from 'prop-types';
+import { array, func, shape, string, number } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { filmPropTypes } from '../../../prop-types/film';
 import PageFooter from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
 import FilmList from '../../film-list/film-list';
 import Tabs from '../../tabs/tabs';
 import NotFoundPage from '../not-found-page/not-found-page';
 
-import { APP_ROUTES } from '../../../const';
-import { fetchSimilarFilms } from '../../../store/api-actions';
+import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../../const';
+import { fetchSimilarFilms, fetchCurrentFilm } from '../../../store/api-actions';
 
 function FilmPage({
   currentFilm,
   similarFilms,
   onFetchSimilarFilms,
+  onFetchCurrentFilm,
+  authorizationStatus,
 }) {
   const { id } = useParams();
 
   useEffect(() => {
     onFetchSimilarFilms(id);
-  }, [id, onFetchSimilarFilms]);
+    onFetchCurrentFilm(id);
+  }, [id, onFetchCurrentFilm, onFetchSimilarFilms]);
 
-  if (currentFilm.length > 0) {
+  if (currentFilm) {
     const {
       name,
       backgroundImage,
       posterImage,
       released,
       genre,
-    } = currentFilm[0];
+    } = currentFilm;
 
     return (
       <>
@@ -64,7 +66,7 @@ function FilmPage({
                     </svg>
                     <span>My list</span>
                   </button>
-                  <Link to={`${APP_ROUTES.FILMS}/${id}${APP_ROUTES.REVIEW}`} className="btn film-card__button">Add review</Link>
+                  {authorizationStatus === AUTHORIZATION_STATUS.AUTH && <Link to={`${APP_ROUTES.FILMS}/${id}${APP_ROUTES.REVIEW}`} className="btn film-card__button">Add review</Link>}
                 </div>
               </div>
             </div>
@@ -75,7 +77,7 @@ function FilmPage({
               <div className="film-card__poster film-card__poster--big">
                 <img src={posterImage} alt={name} width="218" height="327" />
               </div>
-              <Tabs film={currentFilm} />
+              <Tabs film={currentFilm} filmId={id} />
             </div>
           </div>
         </section>
@@ -96,17 +98,34 @@ function FilmPage({
 FilmPage.propTypes = {
   similarFilms: array.isRequired,
   onFetchSimilarFilms: func.isRequired,
-  currentFilm: arrayOf(filmPropTypes),
+  onFetchCurrentFilm: func.isRequired,
+  currentFilm: shape({
+    name: string.isRequired,
+    backgroundImage: string.isRequired,
+    posterImage: string.isRequired,
+    released: number.isRequired,
+    genre: string.isRequired,
+  }),
+  authorizationStatus: string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchSimilarFilms(id) {
     dispatch(fetchSimilarFilms(id));
   },
+  onFetchCurrentFilm(id) {
+    dispatch(fetchCurrentFilm(id));
+  },
 });
 
-const mapStateToProps = (state) => ({
-  similarFilms: state.similarFilms,
+const mapStateToProps = ({
+  similarFilms,
+  currentFilm,
+  authorizationStatus,
+}) => ({
+  similarFilms,
+  currentFilm,
+  authorizationStatus,
 });
 
 export { FilmPage };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import camelize from 'camelize';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../../store/api-actions';
@@ -7,31 +8,25 @@ import PageFooter from '../../page-footer/page-footer';
 
 function SignInPage({ onSubmit }) {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    userEmail: '',
+    userPassword: '',
   });
 
-  function handleLoginChange({ target: { value } }) {
+  function handleFieldChange (evt) {
+    const {name, value} = evt.target;
     setFormData({
       ...formData,
-      email: value,
-    });
-  }
-
-  function handlePasswordChange({ target: { value } }) {
-    setFormData({
-      ...formData,
-      password: value,
+      [camelize(name)]: value,
     });
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    if(formData.password.trim().length) {
+    if(formData.userPassword.trim().length) {
       onSubmit({
-        email: formData.email,
-        password: formData.password,
+        email: formData.userEmail,
+        password: formData.userPassword,
       });
     }
   }
@@ -48,11 +43,11 @@ function SignInPage({ onSubmit }) {
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" onChange={handleLoginChange} type="email" placeholder="Email address" name="user-email" id="user-email" />
+              <input className="sign-in__input" onChange={handleFieldChange} type="email" placeholder="Email address" name="user-email" id="user-email" />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" onChange={handlePasswordChange} type="password" placeholder="Password" name="user-password" id="user-password" />
+              <input className="sign-in__input" onChange={handleFieldChange} type="password" placeholder="Password" name="user-password" id="user-password" />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>

@@ -1,43 +1,92 @@
 import React, { useState } from 'react';
+import camelize from 'camelize';
+import { func, number, string } from 'prop-types';
+import { connect } from 'react-redux';
+import { postComment } from '../../store/api-actions';
 import Rating from '../rating/rating';
+import ErrorMessage from '../error-message/error-message';
 
-function AddReviewsForm() {
-  const [formData, setFormData] = useState({
-    rating: 0,
-    reviewText: '',
-  });
+function AddReviewsForm({
+  filmId,
+  errorCode,
+  onPostComment,
+}) {
+  const [formData, setFormData] = useState({ rating: 0, comment: ''});
+  const [isValidateData, setValidateData] = useState(false);
+  const { rating, reviewText } = formData;
 
-  function handleRatingChange({ target: { value } }) {
+  function handleFieldChange (evt) {
+    const {name, value} = evt.target;
     setFormData({
       ...formData,
-      rating: value,
+      [camelize(name)]: value,
     });
   }
 
-  function handleReviewTextChange({ target: { value } }) {
-    setFormData({
-      ...formData,
-      reviewText: value,
-    });
+  function handleFieldBlur () {
+    if (rating && (reviewText.length >= 50 && reviewText.length <= 400)) {
+      setValidateData(true);
+    } else {
+      setValidateData(false);
+    }
+  }
+
+  function handleFieldSubmit (evt) {
+    evt.preventDefault();
+    onPostComment(filmId, {rating, comment: reviewText});
   }
 
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form action="#" className="add-review__form" onSubmit={handleFieldSubmit}>
         <div className="rating">
           <div className="rating__stars">
-            <Rating onHandleRatingChange={handleRatingChange} />
+            <Rating
+              onHandleRatingChange={handleFieldChange}
+              onHandleFieldBlur={handleFieldBlur}
+            />
           </div>
         </div>
         <div className="add-review__text">
-          <textarea className="add-review__textarea" name="review-text" id="review-text" onChange={handleReviewTextChange} placeholder="Review text" />
+          <textarea
+            className="add-review__textarea"
+            name="review-text" id="review-text"
+            onChange={handleFieldChange}
+            onBlur={handleFieldBlur}
+            placeholder="Review text"
+          />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button
+              className="add-review__btn"
+              type="submit"
+              disabled={!isValidateData}
+            >
+              Post
+            </button>
           </div>
         </div>
+        {errorCode && <ErrorMessage errorCode={''} />}
       </form>
     </div>
   );
 }
 
-export default AddReviewsForm;
+AddReviewsForm.propTypes = {
+  filmId: string.isRequired,
+  errorCode: number,
+  onPostComment: func.isRequired,
+};
+
+const mapStateToProps = ({ filmComments }) => ({
+  errorCode: filmComments.errorCode,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onPostComment(id, comment) {
+    dispatch(postComment(id, comment));
+  },
+});
+
+export { AddReviewsForm };
+export default connect(mapStateToProps, mapDispatchToProps)(AddReviewsForm);
+

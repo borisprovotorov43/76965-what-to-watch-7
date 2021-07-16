@@ -20,12 +20,10 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import browserHistory from '../../browser-history';
 
-function App({ films, mylist, authorizationStatus }) {
+function App({ films, mylist, authorizationStatus, isDataLoaded }) {
 
-  if (isCheckoutAuth(authorizationStatus)) {
-    return (
-      <Spinner />
-    );
+  if (!isDataLoaded) {
+    return <Spinner />;
   }
 
   return (
@@ -48,26 +46,14 @@ function App({ films, mylist, authorizationStatus }) {
         <Route
           path={APP_ROUTES.DEV_FILM}
           exact
-          render={({ match: { params: { id } } }) => {
-            const currentFilm = getCurrentFilm(films, id);
-            return (
-              <FilmPage
-                currentFilm={currentFilm}
-              />
-            );
-          }}
+          component={FilmPage}
         />
         <PrivateRoute
           path={APP_ROUTES.DEV_ADD_REVIEW}
           exact
-          render={({ match: { params: { id } } }) => {
-            const currentFilm = getCurrentFilm(films, id);
-            return (
-              <AddReviewPage
-                currentFilm={currentFilm}
-              />
-            );
-          }}
+          render={
+            () => <AddReviewPage />
+          }
         >
         </PrivateRoute>
         <Route
@@ -90,7 +76,7 @@ function App({ films, mylist, authorizationStatus }) {
   );
 }
 
-const { string, number, shape, arrayOf, oneOf } = PropTypes;
+const { string, number, shape, arrayOf, oneOf, bool } = PropTypes;
 
 App.propTypes = {
   films: arrayOf(filmPropTypes),
@@ -102,11 +88,13 @@ App.propTypes = {
     }),
   ).isRequired,
   authorizationStatus: oneOf(Object.values(AUTHORIZATION_STATUS)),
+  isDataLoaded: bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({ films, authorizationStatus }) => ({
+  films: films,
+  authorizationStatus: authorizationStatus,
+  isDataLoaded: !(isCheckoutAuth(authorizationStatus) || films.length === 0),
 });
 
 export default connect(mapStateToProps, null)(App);

@@ -1,10 +1,11 @@
 export const ActionType = {
   CHANGE_GENRE: 'CHANGE_GENRE',
-  CHANGE_FILMS_PER_PAGE: 'CHANG_FILMS_PER_PAGE',
-  RESET_FILMS_PER_PAGE: 'RESET_FILMS_PER_PAGE',
   LOAD_PROMO_FILMS: 'LOAD_PROMO_FILMS',
   LOAD_FILMS: 'LOAD_FILMS',
   LOAD_SIMILAR_FILMS: 'LOAD_SIMILAR_FILMS',
+  LOAD_CURRENT_FILM: 'LOAD_CURRENT_FILM',
+  LOAD_FILM_COMMENTS: 'LOAD_FILM_COMMENTS',
+  ADD_COMMENT: 'ADD_COMMENT',
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
@@ -36,6 +37,27 @@ export function loadSimilarFilms (action) {
   return {
     type: ActionType.LOAD_SIMILAR_FILMS,
     payload: action.payload,
+  };
+}
+
+export function loadCurrentFilm (action) {
+  return {
+    type: ActionType.LOAD_CURRENT_FILM,
+    payload: action.payload,
+  };
+}
+
+export function loadFilmComments (action) {
+  return {
+    type: ActionType.LOAD_FILM_COMMENTS,
+    payload: action,
+  };
+}
+
+export function addComment (action) {
+  return {
+    type: ActionType.ADD_COMMENT,
+    payload: action,
   };
 }
 

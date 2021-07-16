@@ -1,5 +1,6 @@
 import React from 'react';
-import { filmPropTypes } from '../../prop-types/film';
+import { string, number, shape, arrayOf } from 'prop-types';
+
 import { getRatingName } from '../../utils';
 
 function TabOverview({
@@ -33,7 +34,13 @@ function TabOverview({
 }
 
 TabOverview.propTypes = {
-  film: filmPropTypes,
+  film: shape({
+    description: string.isRequired,
+    scoresCount: number.isRequired,
+    rating: number.isRequired,
+    starring: arrayOf(string.isRequired).isRequired,
+    director: string.isRequired,
+  }).isRequired,
 };
 
 export default TabOverview;

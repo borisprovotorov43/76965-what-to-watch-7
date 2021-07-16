@@ -28,9 +28,7 @@ PrivateRoute.propTypes = {
   authorizationStatus: string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
+const mapStateToProps = ({ authorizationStatus }) => ({ authorizationStatus });
 
 export { PrivateRoute };
 export default connect(mapStateToProps, null)(PrivateRoute);

@@ -1,20 +1,25 @@
-import React from 'react';
-import { arrayOf } from 'prop-types';
+import React, { useEffect } from 'react';
+import { func, number, shape, string } from 'prop-types';
+import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { filmPropTypes } from '../../../prop-types/film';
+import { APP_ROUTES } from '../../../const';
+
+import { fetchCurrentFilm } from '../../../store/api-actions';
 
 import Logo from '../../logo/logo';
 import AddReviewsFrom from '../../add-review-form/add-reviews-form';
-import NotFoundPage from '../not-found-page/not-found-page';
 import UserBlock from '../../user-block/user-block';
+import NotFoundPage from '../not-found-page/not-found-page';
 
-import { APP_ROUTES } from '../../../const';
-
-function AddReviewPage({ currentFilm }) {
+function AddReviewPage({ currentFilm, onFetchCurrentFilm }) {
   const { id } = useParams();
 
-  if (currentFilm.length > 0) {
-    const { name, backgroundImage, posterImage } = currentFilm[0];
+  useEffect(() => {
+    onFetchCurrentFilm(id);
+  }, [id, onFetchCurrentFilm]);
+
+  if (currentFilm) {
+    const { name, backgroundImage, posterImage } = currentFilm;
 
     return (
       <section className="film-card film-card--full">
@@ -46,7 +51,7 @@ function AddReviewPage({ currentFilm }) {
           </div>
         </div>
 
-        <AddReviewsFrom />
+        <AddReviewsFrom filmId={id} />
       </section>
     );
   }
@@ -55,7 +60,32 @@ function AddReviewPage({ currentFilm }) {
 }
 
 AddReviewPage.propTypes = {
-  currentFilm: arrayOf(filmPropTypes),
+  currentFilm: shape({
+    name: string.isRequired,
+    backgroundImage: string.isRequired,
+    posterImage: string.isRequired,
+    released: number.isRequired,
+    genre: string.isRequired,
+  }),
+  onFetchCurrentFilm: func.isRequired,
 };
 
-export default AddReviewPage;
+const mapDispatchToProps = (dispatch) => ({
+  onFetchCurrentFilm(id) {
+    dispatch(fetchCurrentFilm(id));
+  },
+});
+
+const mapStateToProps = ({
+  similarFilms,
+  currentFilm,
+  authorizationStatus,
+}) =>
+  ({
+    similarFilms,
+    currentFilm,
+    authorizationStatus,
+  });
+
+export { AddReviewPage };
+export default connect(mapStateToProps, mapDispatchToProps)(AddReviewPage);

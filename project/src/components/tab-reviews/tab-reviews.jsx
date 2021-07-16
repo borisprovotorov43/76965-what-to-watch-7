@@ -1,18 +1,21 @@
-import React from 'react';
-import { arrayOf } from 'prop-types';
-import { filmPropTypes } from '../../prop-types/film';
+import React, { useEffect } from 'react';
+import { arrayOf, func, objectOf, string } from 'prop-types';
 import { reviewsTypes } from '../../prop-types/reviews';
 import Review from '../review/review';
+import { connect } from 'react-redux';
+import { fetchCommentsFilm } from '../../store/api-actions';
 
-import { getFilmReviews } from '../../utils';
+function TabReviews({ filmId, filmComments, onFetchCommentsFilm }) {
+  const { commentsData } = filmComments;
 
-function TabReviews({ film: { id }, reviews}) {
-  const filmReviews = getFilmReviews(reviews, id);
+  useEffect(()=>{
+    onFetchCommentsFilm(filmId);
+  },[filmId, onFetchCommentsFilm]);
 
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        {filmReviews.map((review) => (
+        {commentsData && commentsData.map((review) => (
           <Review
             review={review}
             key={`review-${review.id}`}
@@ -23,8 +26,18 @@ function TabReviews({ film: { id }, reviews}) {
 }
 
 TabReviews.propTypes = {
-  film: filmPropTypes,
-  reviews: arrayOf(reviewsTypes),
+  filmId: string,
+  onFetchCommentsFilm: func,
+  filmComments: objectOf(arrayOf(reviewsTypes)),
 };
 
-export default TabReviews;
+const mapStateToProps = ({ filmComments }) => ({ filmComments });
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchCommentsFilm(id, comment) {
+    dispatch(fetchCommentsFilm(id, comment));
+  },
+});
+
+export { TabReviews };
+export default connect(mapStateToProps, mapDispatchToProps)(TabReviews);
