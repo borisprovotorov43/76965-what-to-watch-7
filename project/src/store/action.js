@@ -6,7 +6,6 @@ export const ActionType = {
   LOAD_CURRENT_FILM: 'LOAD_CURRENT_FILM',
   LOAD_FILM_COMMENTS: 'LOAD_FILM_COMMENTS',
   ADD_COMMENT: 'ADD_COMMENT',
-  ADD_COMMENT_ERROR: 'ADD_COMMENT_ERROR',
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
@@ -51,21 +50,14 @@ export function loadCurrentFilm (action) {
 export function loadFilmComments (action) {
   return {
     type: ActionType.LOAD_FILM_COMMENTS,
-    payload: action.payload,
+    payload: action,
   };
 }
 
 export function addComment (action) {
   return {
     type: ActionType.ADD_COMMENT,
-    payload: action.payload,
-  };
-}
-
-export function addCommentError (action) {
-  return {
-    type: ActionType.ADD_COMMENT_ERROR,
-    payload: action.payload,
+    payload: action,
   };
 }
 

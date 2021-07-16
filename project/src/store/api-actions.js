@@ -4,7 +4,6 @@ import {
   loadCurrentFilm,
   loadFilmComments,
   addComment,
-  addCommentError,
   loadPromoFilm,
   requireAuthorization,
   redirectToRoute,
@@ -39,18 +38,22 @@ export const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
 export const fetchCommentsFilm = (id) => (dispatch, _getState, api) => (
   api.get(`${API_ROUTES.COMMENTS}/${id}`)
     .then(({data}) => dispatch(loadFilmComments({
-      payload: data,
+      commentsData: data,
+    })))
+    .catch(({response}) => dispatch(addComment({
+      errorCode: response.status,
     })))
 );
 
 export const postComment = (id, comment) => (dispatch, _getState, api) => {
-
   api.post(`${API_ROUTES.COMMENTS}/${id}`, comment)
-    .then(({data}) => {
-      dispatch(addComment(data));
-    })
+    .then(({data}) =>  dispatch(addComment({
+      commentsData: data,
+    })))
     .then(() => dispatch(redirectToRoute(`${APP_ROUTES.FILMS}/${id}`)))
-    .catch(({response}) => dispatch(addCommentError(response.status)));
+    .catch(({response}) => dispatch(addComment({
+      errorCode: response.status,
+    })));
 };
 
 export const fetchSimilarFilms = (id) => (dispatch, _getState, api) => (

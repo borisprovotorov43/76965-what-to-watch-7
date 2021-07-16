@@ -7,8 +7,10 @@ const initialState = {
   films: [],
   currentFilm: null,
   similarFilms: [],
-  filmComments: [],
-  addCommentErrorCode: null,
+  filmComments: {
+    commentsData: [],
+    errorCode: null,
+  },
   currentGenre: DEFAULT_GENGE,
   authorizationStatus: AUTHORIZATION_STATUS.UNKNOWN,
   userData: {
@@ -53,11 +55,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filmComments: action.payload,
-      };
-    case ActionType.ADD_COMMENT_ERROR:
-      return {
-        ...state,
-        addCommentErrorCode: action.payload,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {

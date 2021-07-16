@@ -76,11 +76,16 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = (state) => ({
-  similarFilms: state.similarFilms,
-  currentFilm: state.currentFilm,
-  authorizationStatus: state.authorizationStatus,
-});
+const mapStateToProps = ({
+  similarFilms,
+  currentFilm,
+  authorizationStatus,
+}) =>
+  ({
+    similarFilms,
+    currentFilm,
+    authorizationStatus,
+  });
 
 export { AddReviewPage };
 export default connect(mapStateToProps, mapDispatchToProps)(AddReviewPage);

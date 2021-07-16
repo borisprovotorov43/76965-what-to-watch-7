@@ -34,9 +34,12 @@ function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre,
-  films: state.films,
+const mapStateToProps = ({
+  currentGenre,
+  films,
+}) => ({
+  currentGenre,
+  films,
 });
 
 const mapDispatchToProps = (dispatch) => ({

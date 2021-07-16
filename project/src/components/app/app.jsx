@@ -22,7 +22,7 @@ import browserHistory from '../../browser-history';
 
 function App({ films, mylist, authorizationStatus, isDataLoaded }) {
 
-  if (isDataLoaded) {
+  if (!isDataLoaded) {
     return <Spinner />;
   }
 
@@ -94,7 +94,7 @@ App.propTypes = {
 const mapStateToProps = ({ films, authorizationStatus }) => ({
   films: films,
   authorizationStatus: authorizationStatus,
-  isDataLoaded: (isCheckoutAuth(authorizationStatus) || films.length === 0),
+  isDataLoaded: !(isCheckoutAuth(authorizationStatus) || films.length === 0),
 });
 
 export default connect(mapStateToProps, null)(App);

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { arrayOf, func, string } from 'prop-types';
+import { arrayOf, func, objectOf, string } from 'prop-types';
 import { reviewsTypes } from '../../prop-types/reviews';
 import Review from '../review/review';
 import { connect } from 'react-redux';
 import { fetchCommentsFilm } from '../../store/api-actions';
 
 function TabReviews({ filmId, filmComments, onFetchCommentsFilm }) {
+  const { commentsData } = filmComments;
 
   useEffect(()=>{
     onFetchCommentsFilm(filmId);
@@ -14,7 +15,7 @@ function TabReviews({ filmId, filmComments, onFetchCommentsFilm }) {
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        {filmComments && filmComments.map((review) => (
+        {commentsData && commentsData.map((review) => (
           <Review
             review={review}
             key={`review-${review.id}`}
@@ -27,12 +28,10 @@ function TabReviews({ filmId, filmComments, onFetchCommentsFilm }) {
 TabReviews.propTypes = {
   filmId: string,
   onFetchCommentsFilm: func,
-  filmComments: arrayOf(reviewsTypes),
+  filmComments: objectOf(arrayOf(reviewsTypes)),
 };
 
-const mapStateToProps = (state) => ({
-  filmComments: state.filmComments,
-});
+const mapStateToProps = ({ filmComments }) => ({ filmComments });
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchCommentsFilm(id, comment) {
