@@ -19,6 +19,7 @@ import Spinner from '../spinner/spinner';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import browserHistory from '../../browser-history';
+import { getAuthorizationStatus, getFilmsByGenreSelector } from '../../store/selectors';
 
 function App({ films, mylist, authorizationStatus, isDataLoaded }) {
 
@@ -76,7 +77,7 @@ function App({ films, mylist, authorizationStatus, isDataLoaded }) {
   );
 }
 
-const { string, number, shape, arrayOf, oneOf, bool } = PropTypes;
+const { string, number, bool, shape, arrayOf, oneOf } = PropTypes;
 
 App.propTypes = {
   films: arrayOf(filmPropTypes),
@@ -91,10 +92,10 @@ App.propTypes = {
   isDataLoaded: bool.isRequired,
 };
 
-const mapStateToProps = ({ films, authorizationStatus }) => ({
-  films: films,
-  authorizationStatus: authorizationStatus,
-  isDataLoaded: !(isCheckoutAuth(authorizationStatus) || films.length === 0),
+const mapStateToProps = (state) => ({
+  films: getFilmsByGenreSelector(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  isDataLoaded: !(isCheckoutAuth(getAuthorizationStatus(state)) || getFilmsByGenreSelector(state).length === 0),
 });
 
 export default connect(mapStateToProps, null)(App);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { arrayOf } from 'prop-types';
 import { filmPropTypes } from '../../prop-types/film';
 import { FILMS_PER_PAGE } from '../../const';
@@ -7,29 +7,27 @@ import Spinner from '../spinner/spinner';
 import ShowMore from '../show-more/show-more';
 
 function FilmList({ films }) {
-  const [activeFilm, setActiveFilm] = useState(0);
+  const [activeFilm, setActiveFilm] = useState(true);
   const [filmsPageCounter, setFilmsPageCounter] = useState(1);
 
   const handleActiveFilmSet = (value) => setActiveFilm(value);
-  const handleShowMoreClick = () => {
-    setFilmsPageCounter((prev) => prev + 1);
-  };
+  const handleShowMoreClick = () => setFilmsPageCounter((prev) => prev + 1);
 
-  const filmsFiltered = films.slice(0, (filmsPageCounter * FILMS_PER_PAGE));
-  const isShowButtonShown = !(filmsFiltered.length >= films.length);
+  const filmFiltered = films.slice(0, (filmsPageCounter * FILMS_PER_PAGE));
+  const isShowButtonShown = !(filmFiltered.length >= films.length);
 
-  if (filmsFiltered.length > 0) {
+  if (filmFiltered.length > 0) {
     return (
       <>
         <div className="catalog__films-list">
-          {filmsFiltered.map(({ id, name, previewImage, previewVideoLink }) => (
+          {filmFiltered.map(({ id, name, previewImage, previewVideoLink }) => (
             <SmallFilmCard
               id={id}
               key={`pc${id}`}
               name={name}
               previewImage={previewImage}
               onActiveFilmSet={handleActiveFilmSet}
-              activeFilm={activeFilm}
+              activeFilm={id === activeFilm}
               previewVideoLink={previewVideoLink}
             />
           ))}
@@ -46,4 +44,4 @@ FilmList.propTypes = {
   films: arrayOf(filmPropTypes),
 };
 
-export default FilmList;
+export default memo(FilmList);

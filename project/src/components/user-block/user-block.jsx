@@ -48,12 +48,9 @@ UserBlock.propTypes = {
   }),
 };
 
-const mapStateToProps = ({
-  authorizationStatus,
-  userData,
-}) => ({
-  authorizationStatus,
-  userData,
+const mapStateToProps = ({ loginReducer }) => ({
+  authorizationStatus: loginReducer.authorizationStatus,
+  userData: loginReducer.userData,
 });
 
 const mapDispatchToProps = (dispatch) => ({

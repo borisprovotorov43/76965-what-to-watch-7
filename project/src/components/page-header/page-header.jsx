@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
@@ -19,4 +19,4 @@ PageHeader.propTypes = {
   className: string,
 };
 
-export default PageHeader;
+export default memo(PageHeader);

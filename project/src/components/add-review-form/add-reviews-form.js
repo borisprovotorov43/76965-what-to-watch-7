@@ -77,8 +77,8 @@ AddReviewsForm.propTypes = {
   onPostComment: func.isRequired,
 };
 
-const mapStateToProps = ({ filmComments }) => ({
-  errorCode: filmComments.errorCode,
+const mapStateToProps = ({ reviewsReducer }) => ({
+  errorCode: reviewsReducer.filmComments.errorCode,
 });
 
 const mapDispatchToProps = (dispatch) => ({

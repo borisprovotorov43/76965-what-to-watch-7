@@ -10,6 +10,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 
 import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../../const';
 import { fetchSimilarFilms, fetchCurrentFilm } from '../../../store/api-actions';
+import { getAuthorizationStatus, getSimilarFilms, getCurrentFilm } from '../../../store/selectors';
 
 function FilmPage({
   currentFilm,
@@ -118,14 +119,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = ({
-  similarFilms,
-  currentFilm,
-  authorizationStatus,
-}) => ({
-  similarFilms,
-  currentFilm,
-  authorizationStatus,
+const mapStateToProps = (state) => ({
+  similarFilms: getSimilarFilms(state),
+  currentFilm: getCurrentFilm(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 export { FilmPage };

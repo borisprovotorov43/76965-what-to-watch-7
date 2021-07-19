@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { arrayOf } from 'prop-types';
-import { connect } from 'react-redux';
 import { filmPropTypes } from '../../../prop-types/film';
 import { promofilmPropTypes } from '../../../prop-types/promoFilm';
+
+import { connect } from 'react-redux';
+import { getFilmsByGenreSelector, getPromoFilm } from '../../../store/selectors';
+
+import { DEFAULT_GENGE } from '../../../const';
 
 import PageFooter from '../../page-footer/page-footer';
 import FilmCard from '../../film-card/film-card';
 import FilmList from '../../film-list/film-list';
 import GenreList from '../../genre-list/genre-list';
 
-import { getFilmsByGenre } from '../../../utils';
-import { DEFAULT_GENGE } from '../../../const';
-
-function MainPage({ films, promoFilm }) {
+function MainPage({ films, promoFilm}) {
   return (
     <>
       <FilmCard promoFilm={promoFilm} />
@@ -28,9 +29,9 @@ function MainPage({ films, promoFilm }) {
   );
 }
 
-const mapStateToProps = ({ films, currentGenre, promoFilm }) => ({
-  promoFilm: promoFilm,
-  films: (currentGenre === DEFAULT_GENGE) ? films : getFilmsByGenre(films, currentGenre),
+const mapStateToProps = (state) => ({
+  promoFilm: getPromoFilm(state),
+  films: getFilmsByGenreSelector(state),
 });
 
 MainPage.propTypes = {
@@ -39,4 +40,4 @@ MainPage.propTypes = {
 };
 
 export { MainPage };
-export default connect(mapStateToProps)(MainPage);
+export default memo(connect(mapStateToProps)(MainPage));

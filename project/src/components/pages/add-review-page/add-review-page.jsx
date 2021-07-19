@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { func, number, shape, string } from 'prop-types';
-import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { APP_ROUTES } from '../../../const';
-
+import { connect } from 'react-redux';
 import { fetchCurrentFilm } from '../../../store/api-actions';
+import { getAuthorizationStatus, getCurrentFilm, getSimilarFilms } from '../../../store/selectors';
+import { APP_ROUTES } from '../../../const';
 
 import Logo from '../../logo/logo';
 import AddReviewsFrom from '../../add-review-form/add-reviews-form';
@@ -76,16 +76,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = ({
-  similarFilms,
-  currentFilm,
-  authorizationStatus,
-}) =>
-  ({
-    similarFilms,
-    currentFilm,
-    authorizationStatus,
-  });
+const mapStateToProps = (state) => ({
+  similarFilms: getSimilarFilms(state),
+  currentFilm: getCurrentFilm(state),
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 export { AddReviewPage };
 export default connect(mapStateToProps, mapDispatchToProps)(AddReviewPage);

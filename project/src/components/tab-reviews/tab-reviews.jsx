@@ -31,7 +31,9 @@ TabReviews.propTypes = {
   filmComments: objectOf(arrayOf(reviewsTypes)),
 };
 
-const mapStateToProps = ({ filmComments }) => ({ filmComments });
+const mapStateToProps = ({ reviewsReducer }) => ({
+  filmComments: reviewsReducer.filmComments,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchCommentsFilm(id, comment) {
