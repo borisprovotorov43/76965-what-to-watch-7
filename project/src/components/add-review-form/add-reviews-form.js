@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { postComment } from '../../store/api-actions';
 import Rating from '../rating/rating';
 import ErrorMessage from '../error-message/error-message';
+import { getReviewsError } from '../../store/selectors';
 
 function AddReviewsForm({
   filmId,
@@ -65,7 +66,7 @@ function AddReviewsForm({
             </button>
           </div>
         </div>
-        {errorCode && <ErrorMessage errorCode={''} />}
+        {errorCode && <ErrorMessage errorCode={errorCode} />}
       </form>
     </div>
   );
@@ -77,8 +78,8 @@ AddReviewsForm.propTypes = {
   onPostComment: func.isRequired,
 };
 
-const mapStateToProps = ({ reviewsReducer }) => ({
-  errorCode: reviewsReducer.filmComments.errorCode,
+const mapStateToProps = (state) => ({
+  errorCode: getReviewsError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -3,7 +3,9 @@ import { DEFAULT_GENGE } from '../../const';
 import { getFilmsByGenre } from '../../utils';
 
 export const getAuthorizationStatus = (state) => state.loginReducer.authorizationStatus;
-export const getReviews = (state) => state.data.reviews;
+export const getUserData = (state) => state.loginReducer.userData;
+export const getReviews = (state) => state.reviewsReducer.filmComments;
+export const getReviewsError = (state) => state.reviewsReducer.filmComments.errorCode;
 
 export const getPromoFilm = (state) => state.filmsReducer.promoFilm;
 export const getFilms = (state) => state.filmsReducer.films;
