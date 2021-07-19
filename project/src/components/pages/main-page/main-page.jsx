@@ -4,16 +4,15 @@ import { filmPropTypes } from '../../../prop-types/film';
 import { promofilmPropTypes } from '../../../prop-types/promoFilm';
 
 import { connect } from 'react-redux';
-import { getFilmsByGenreSelector, getPromoFilm } from '../../../store/selectors';
-
 import { DEFAULT_GENGE } from '../../../const';
 
 import PageFooter from '../../page-footer/page-footer';
 import FilmCard from '../../film-card/film-card';
 import FilmList from '../../film-list/film-list';
 import GenreList from '../../genre-list/genre-list';
+import { getFilmsByGenreSelector } from '../../../store/selectors';
 
-function MainPage({ films, promoFilm}) {
+function MainPage({ films, promoFilm }) {
   return (
     <>
       <FilmCard promoFilm={promoFilm} />
@@ -30,7 +29,7 @@ function MainPage({ films, promoFilm}) {
 }
 
 const mapStateToProps = (state) => ({
-  promoFilm: getPromoFilm(state),
+  promoFilm: state.filmsReducer.promoFilm,
   films: getFilmsByGenreSelector(state),
 });
 

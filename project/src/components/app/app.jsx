@@ -19,7 +19,7 @@ import Spinner from '../spinner/spinner';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import browserHistory from '../../browser-history';
-import { getAuthorizationStatus, getFilmsByGenreSelector } from '../../store/selectors';
+import { getFilmsByGenreSelector } from '../../store/selectors';
 
 function App({ films, mylist, authorizationStatus, isDataLoaded }) {
 
@@ -92,10 +92,15 @@ App.propTypes = {
   isDataLoaded: bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: getFilmsByGenreSelector(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  isDataLoaded: !(isCheckoutAuth(getAuthorizationStatus(state)) || getFilmsByGenreSelector(state).length === 0),
-});
+const mapStateToProps = (state) => {
+  const isAuth =  state.loginReducer.authorizationStatus;
+  const films = getFilmsByGenreSelector(state);
+
+  return {
+    films: films,
+    authorizationStatus: isAuth,
+    isDataLoaded: !(isCheckoutAuth(isAuth) || films.length === 0),
+  };
+};
 
 export default connect(mapStateToProps, null)(App);

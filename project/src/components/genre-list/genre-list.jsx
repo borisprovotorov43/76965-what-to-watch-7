@@ -5,14 +5,9 @@ import { connect } from 'react-redux';
 import { filmPropTypes } from '../../prop-types/film';
 import cx from 'classnames';
 import { changeGenre } from '../../store/action';
-import { getCurrentGenre, getFilms } from '../../store/selectors';
 
 function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
-
-  const getGenres = useCallback(
-    (value) => [defaultGenge, ...new Set(value.map(({ genre }) => genre))],
-    [defaultGenge],
-  );
+  const genresList = [defaultGenge, ...new Set(films.map(({ genre }) => genre))];
 
   const handleFilmsFilteredClick = useCallback(
     (evt, genre) => {
@@ -24,7 +19,7 @@ function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
 
   return (
     <ul className="catalog__genres-list">
-      {getGenres(films).map((genre) => (
+      {genresList.map((genre) => (
         <li
           key={`genre-${genre}`}
           className={cx('catalog__genres-item', { 'catalog__genres-item--active': genre === currentGenre })}
@@ -42,9 +37,9 @@ function GenreList({ films, onChangeGenre, currentGenre, defaultGenge }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  currentGenre: getCurrentGenre(state),
-  films: getFilms(state),
+const mapStateToProps = ({ filmsReducer }) => ({
+  currentGenre: filmsReducer.currentGenre,
+  films: filmsReducer.films,
 });
 
 const mapDispatchToProps = (dispatch) => ({

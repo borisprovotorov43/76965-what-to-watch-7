@@ -16,49 +16,49 @@ import camelize from 'camelize';
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => (
   api.get(API_ROUTES.FILM_PROMO)
-    .then(({data}) => dispatch(loadPromoFilm({
+    .then(({ data }) => dispatch(loadPromoFilm({
       payload: data,
     })))
 );
 
 export const fetchFilms = () => (dispatch, _getState, api) => (
   api.get(API_ROUTES.FILMS)
-    .then(({data}) => dispatch(loadFilms({
+    .then(({ data }) => dispatch(loadFilms({
       payload: data,
     })))
 );
 
 export const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
   api.get(`${API_ROUTES.FILMS}/${id}`)
-    .then(({data}) => dispatch(loadCurrentFilm({
+    .then(({ data }) => dispatch(loadCurrentFilm({
       payload: data,
     })))
 );
 
 export const fetchCommentsFilm = (id) => (dispatch, _getState, api) => (
   api.get(`${API_ROUTES.COMMENTS}/${id}`)
-    .then(({data}) => dispatch(loadFilmComments({
+    .then(({ data }) => dispatch(loadFilmComments({
       commentsData: data,
     })))
-    .catch(({response}) => dispatch(addComment({
+    .catch(({ response }) => dispatch(addComment({
       errorCode: response.status,
     })))
 );
 
 export const postComment = (id, comment) => (dispatch, _getState, api) => {
   api.post(`${API_ROUTES.COMMENTS}/${id}`, comment)
-    .then(({data}) =>  dispatch(addComment({
+    .then(({ data }) =>  dispatch(addComment({
       commentsData: data,
     })))
     .then(() => dispatch(redirectToRoute(`${APP_ROUTES.FILMS}/${id}`)))
-    .catch(({response}) => dispatch(addComment({
+    .catch(({ response }) => dispatch(addComment({
       errorCode: response.status,
     })));
 };
 
 export const fetchSimilarFilms = (id) => (dispatch, _getState, api) => (
   api.get(`${API_ROUTES.FILMS}/${id}${API_ROUTES.FILMS_SIMILAR}`)
-    .then(({data}) => dispatch(loadSimilarFilms({
+    .then(({ data }) => dispatch(loadSimilarFilms({
       payload: data,
     })))
 );

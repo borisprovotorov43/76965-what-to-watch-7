@@ -4,7 +4,6 @@ import { reviewsTypes } from '../../prop-types/reviews';
 import Review from '../review/review';
 import { connect } from 'react-redux';
 import { fetchCommentsFilm } from '../../store/api-actions';
-import { getReviews } from '../../store/selectors';
 
 function TabReviews({ filmId, filmComments, onFetchCommentsFilm }) {
   const { commentsData } = filmComments;
@@ -32,8 +31,8 @@ TabReviews.propTypes = {
   filmComments: objectOf(arrayOf(reviewsTypes)),
 };
 
-const mapStateToProps = (state) => ({
-  filmComments: getReviews(state),
+const mapStateToProps = ({ reviewsReducer }) => ({
+  filmComments: reviewsReducer.filmComments,
 });
 
 const mapDispatchToProps = (dispatch) => ({

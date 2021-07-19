@@ -3,7 +3,6 @@ import { func, number, shape, string } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCurrentFilm } from '../../../store/api-actions';
-import { getAuthorizationStatus, getCurrentFilm, getSimilarFilms } from '../../../store/selectors';
 import { APP_ROUTES } from '../../../const';
 
 import Logo from '../../logo/logo';
@@ -70,16 +69,16 @@ AddReviewPage.propTypes = {
   onFetchCurrentFilm: func.isRequired,
 };
 
+const mapStateToProps = ({ filmsReducer, loginReducer }) => ({
+  similarFilms: filmsReducer.similarFilms,
+  currentFilm: filmsReducer.currentFilm,
+  authorizationStatus: loginReducer.authorizationStatus,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onFetchCurrentFilm(id) {
     dispatch(fetchCurrentFilm(id));
   },
-});
-
-const mapStateToProps = (state) => ({
-  similarFilms: getSimilarFilms(state),
-  currentFilm: getCurrentFilm(state),
-  authorizationStatus: getAuthorizationStatus(state),
 });
 
 export { AddReviewPage };

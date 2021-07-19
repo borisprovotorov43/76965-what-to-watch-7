@@ -5,14 +5,13 @@ import { connect } from 'react-redux';
 import { postComment } from '../../store/api-actions';
 import Rating from '../rating/rating';
 import ErrorMessage from '../error-message/error-message';
-import { getReviewsError } from '../../store/selectors';
 
 function AddReviewsForm({
   filmId,
   errorCode,
   onPostComment,
 }) {
-  const [formData, setFormData] = useState({ rating: 0, comment: ''});
+  const [formData, setFormData] = useState({ rating: 0, comment: '' });
   const [isValidateData, setValidateData] = useState(false);
   const { rating, reviewText } = formData;
 
@@ -78,8 +77,8 @@ AddReviewsForm.propTypes = {
   onPostComment: func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  errorCode: getReviewsError(state),
+const mapStateToProps = ({ reviewsReducer }) => ({
+  errorCode: reviewsReducer.filmComments.errorCode,
 });
 
 const mapDispatchToProps = (dispatch) => ({

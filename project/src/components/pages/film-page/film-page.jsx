@@ -10,7 +10,6 @@ import NotFoundPage from '../not-found-page/not-found-page';
 
 import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../../const';
 import { fetchSimilarFilms, fetchCurrentFilm } from '../../../store/api-actions';
-import { getAuthorizationStatus, getSimilarFilms, getCurrentFilm } from '../../../store/selectors';
 
 function FilmPage({
   currentFilm,
@@ -110,6 +109,12 @@ FilmPage.propTypes = {
   authorizationStatus: string.isRequired,
 };
 
+const mapStateToProps = ({ filmsReducer, loginReducer }) => ({
+  similarFilms: filmsReducer.similarFilms,
+  currentFilm: filmsReducer.currentFilm,
+  authorizationStatus: loginReducer.authorizationStatus,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onFetchSimilarFilms(id) {
     dispatch(fetchSimilarFilms(id));
@@ -117,12 +122,6 @@ const mapDispatchToProps = (dispatch) => ({
   onFetchCurrentFilm(id) {
     dispatch(fetchCurrentFilm(id));
   },
-});
-
-const mapStateToProps = (state) => ({
-  similarFilms: getSimilarFilms(state),
-  currentFilm: getCurrentFilm(state),
-  authorizationStatus: getAuthorizationStatus(state),
 });
 
 export { FilmPage };

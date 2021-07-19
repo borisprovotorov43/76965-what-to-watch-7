@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { getAuthorizationStatus, getUserData } from '../../store/selectors';
 import { logoutUser } from '../../store/api-actions';
 
 import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../const';
@@ -50,9 +49,9 @@ UserBlock.propTypes = {
   }),
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  userData: getUserData(state),
+const mapStateToProps = ({ loginReducer }) => ({
+  authorizationStatus: loginReducer.authorizationStatus,
+  userData: loginReducer.userData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
