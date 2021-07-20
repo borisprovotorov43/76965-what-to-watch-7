@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Logo from '../logo/logo';
 
 function PageFooter() {
@@ -12,4 +12,4 @@ function PageFooter() {
   );
 }
 
-export default PageFooter;
+export default memo(PageFooter);

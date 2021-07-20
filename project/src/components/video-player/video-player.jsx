@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 function VideoPlayer({ source }) {
@@ -28,4 +28,4 @@ VideoPlayer.propTypes = {
   source: string.isRequired,
 };
 
-export default VideoPlayer;
+export default memo(VideoPlayer);

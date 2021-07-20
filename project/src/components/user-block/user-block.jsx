@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { logoutUser } from '../../store/api-actions';
 
@@ -48,12 +49,9 @@ UserBlock.propTypes = {
   }),
 };
 
-const mapStateToProps = ({
-  authorizationStatus,
-  userData,
-}) => ({
-  authorizationStatus,
-  userData,
+const mapStateToProps = ({ loginReducer }) => ({
+  authorizationStatus: loginReducer.authorizationStatus,
+  userData: loginReducer.userData,
 });
 
 const mapDispatchToProps = (dispatch) => ({

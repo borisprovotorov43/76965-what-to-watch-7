@@ -11,7 +11,7 @@ function AddReviewsForm({
   errorCode,
   onPostComment,
 }) {
-  const [formData, setFormData] = useState({ rating: 0, comment: ''});
+  const [formData, setFormData] = useState({ rating: 0, comment: '' });
   const [isValidateData, setValidateData] = useState(false);
   const { rating, reviewText } = formData;
 
@@ -65,7 +65,7 @@ function AddReviewsForm({
             </button>
           </div>
         </div>
-        {errorCode && <ErrorMessage errorCode={''} />}
+        {errorCode && <ErrorMessage errorCode={errorCode} />}
       </form>
     </div>
   );
@@ -77,8 +77,8 @@ AddReviewsForm.propTypes = {
   onPostComment: func.isRequired,
 };
 
-const mapStateToProps = ({ filmComments }) => ({
-  errorCode: filmComments.errorCode,
+const mapStateToProps = ({ reviewsReducer }) => ({
+  errorCode: reviewsReducer.filmComments.errorCode,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
+import PropTypes, { bool } from 'prop-types';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../const';
 import VideoPlayer from '../video-player/video-player';
 
 function SmallFilmCard({ id, name, previewImage, onActiveFilmSet, activeFilm, previewVideoLink }) {
   const handleMouseEnter = () => onActiveFilmSet(id);
-  const handleMouseLeave = () => onActiveFilmSet(0);
+  const handleMouseLeave = () => onActiveFilmSet(false);
 
   return (
     <article
@@ -16,7 +16,7 @@ function SmallFilmCard({ id, name, previewImage, onActiveFilmSet, activeFilm, pr
       onMouseLeave={handleMouseLeave}
     >
       <div className="small-film-card__image">
-        {activeFilm !== id
+        {!activeFilm
           ? <img src={previewImage} alt={name} width="280" height="175" />
           : <VideoPlayer source={previewVideoLink} />}
       </div>
@@ -35,7 +35,7 @@ SmallFilmCard.propTypes = {
   previewImage: string.isRequired,
   previewVideoLink: string.isRequired,
   onActiveFilmSet: func.isRequired,
-  activeFilm: number.isRequired,
+  activeFilm: bool.isRequired,
 };
 
-export default SmallFilmCard;
+export default memo(SmallFilmCard);

@@ -109,6 +109,12 @@ FilmPage.propTypes = {
   authorizationStatus: string.isRequired,
 };
 
+const mapStateToProps = ({ filmsReducer, loginReducer }) => ({
+  similarFilms: filmsReducer.similarFilms,
+  currentFilm: filmsReducer.currentFilm,
+  authorizationStatus: loginReducer.authorizationStatus,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onFetchSimilarFilms(id) {
     dispatch(fetchSimilarFilms(id));
@@ -116,16 +122,6 @@ const mapDispatchToProps = (dispatch) => ({
   onFetchCurrentFilm(id) {
     dispatch(fetchCurrentFilm(id));
   },
-});
-
-const mapStateToProps = ({
-  similarFilms,
-  currentFilm,
-  authorizationStatus,
-}) => ({
-  similarFilms,
-  currentFilm,
-  authorizationStatus,
 });
 
 export { FilmPage };
