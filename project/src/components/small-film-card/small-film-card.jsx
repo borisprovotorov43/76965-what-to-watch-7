@@ -3,7 +3,7 @@ import PropTypes, { bool } from 'prop-types';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../const';
-import VideoPlayer from '../video-player/video-player';
+import SmallVideoPlayer from '../small-video-player/small-video-player';
 
 function SmallFilmCard({ id, name, previewImage, onActiveFilmSet, activeFilm, previewVideoLink }) {
   const handleMouseEnter = () => onActiveFilmSet(id);
@@ -18,7 +18,7 @@ function SmallFilmCard({ id, name, previewImage, onActiveFilmSet, activeFilm, pr
       <div className="small-film-card__image">
         {!activeFilm
           ? <img src={previewImage} alt={name} width="280" height="175" />
-          : <VideoPlayer source={previewVideoLink} />}
+          : <SmallVideoPlayer source={previewVideoLink} />}
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`${APP_ROUTES.FILMS}/${id}`}>{name}</Link>

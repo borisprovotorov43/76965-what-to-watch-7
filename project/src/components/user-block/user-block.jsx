@@ -14,7 +14,9 @@ function UserBlock({ authorizationStatus, signOut, userData: { login, avatarUrl}
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src={avatarUrl} alt={login} width="63" height="63" />
+              <Link to={APP_ROUTES.MY_LIST} >
+                <img src={avatarUrl} alt={login} width="63" height="63" />
+              </Link>
             </div>
           </li>
           <li className="user-block__item">

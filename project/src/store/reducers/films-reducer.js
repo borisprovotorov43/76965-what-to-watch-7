@@ -5,6 +5,7 @@ import camelize from 'camelize';
 const initialState = {
   promoFilm: {},
   films: [],
+  favoriteFilms: [],
   currentFilm: null,
   similarFilms: [],
   currentGenre: DEFAULT_GENGE,
@@ -21,6 +22,11 @@ const filmsReducer = (state = initialState, action) => {
       return {
         ...state,
         films: camelize(action.payload),
+      };
+    case ActionType.LOAD_FAVORITE_FILMS:
+      return {
+        ...state,
+        favoriteFilms: camelize(action.payload),
       };
     case ActionType.LOAD_PROMO_FILMS:
       return {

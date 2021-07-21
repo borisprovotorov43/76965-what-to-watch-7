@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { arrayOf } from 'prop-types';
+import { arrayOf, func } from 'prop-types';
 import { filmPropTypes } from '../../../prop-types/film';
 import { promofilmPropTypes } from '../../../prop-types/promoFilm';
 
@@ -11,11 +11,23 @@ import FilmCard from '../../film-card/film-card';
 import FilmList from '../../film-list/film-list';
 import GenreList from '../../genre-list/genre-list';
 import { getFilmsByGenreSelector } from '../../../store/selectors';
+import { postFavoriteFilm } from '../../../store/api-actions';
 
-function MainPage({ films, promoFilm }) {
+function MainPage({ films, promoFilm, onPostFavoriteFilm }) {
+
+  const handleFavoriteClick = () => {
+    const { id, isFavorite } = promoFilm;
+
+    const statusFilm = isFavorite ? 0 : 1;
+    onPostFavoriteFilm(id, statusFilm, true);
+  };
+
   return (
     <>
-      <FilmCard promoFilm={promoFilm} />
+      <FilmCard
+        promoFilm={promoFilm}
+        onHandleFavoriteClick={handleFavoriteClick}
+      />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -33,10 +45,17 @@ const mapStateToProps = (state) => ({
   films: getFilmsByGenreSelector(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onPostFavoriteFilm(id, status, isPromoFilm) {
+    dispatch(postFavoriteFilm(id, status, isPromoFilm));
+  },
+});
+
 MainPage.propTypes = {
   promoFilm: promofilmPropTypes,
   films: arrayOf(filmPropTypes),
+  onPostFavoriteFilm: func,
 };
 
 export { MainPage };
-export default memo(connect(mapStateToProps)(MainPage));
+export default memo(connect(mapStateToProps, mapDispatchToProps)(MainPage));

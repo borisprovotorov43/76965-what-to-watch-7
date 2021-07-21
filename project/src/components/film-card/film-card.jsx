@@ -1,9 +1,11 @@
+import { func } from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { promofilmPropTypes } from '../../prop-types/promoFilm';
 import PageHeader from '../page-header/page-header';
 
-function FilmCard({ promoFilm }) {
-  const { backgroundImage, posterImage, name, genre, date } = promoFilm;
+function FilmCard({ promoFilm, onHandleFavoriteClick }) {
+  const { id, backgroundImage, posterImage, name, genre, date, isFavorite } = promoFilm;
 
   return (
     <section className="film-card">
@@ -28,15 +30,15 @@ function FilmCard({ promoFilm }) {
             </p>
 
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+              <Link className="btn btn--play film-card__button" to={`/player/${id}`}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s" />
                 </svg>
                 <span>Play</span>
-              </button>
-              <button className="btn btn--list film-card__button" type="button">
+              </Link>
+              <button className="btn btn--list film-card__button" type="button" onClick={onHandleFavoriteClick}>
                 <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add" />
+                  {isFavorite ? <use xlinkHref="#in-list" /> : <use xlinkHref="#add" />}
                 </svg>
                 <span>My list</span>
               </button>
@@ -50,6 +52,7 @@ function FilmCard({ promoFilm }) {
 
 FilmCard.propTypes = {
   promoFilm: promofilmPropTypes,
+  onHandleFavoriteClick: func,
 };
 
 export default FilmCard;

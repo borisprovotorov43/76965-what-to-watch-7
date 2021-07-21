@@ -1,43 +1,117 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
+import { string, shape, func } from 'prop-types';
+import { Link, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchCurrentFilm } from '../../../store/api-actions';
+import { APP_ROUTES } from '../../../const';
+import { getTimeVideo } from '../../../utils';
 import NotFoundPage from '../not-found-page/not-found-page';
+import Spinner from '../../spinner/spinner';
 
-function PlayerPage({ currentFilm }) {
+function PlayerPage({ currentFilm, onFetchCurrentFilm }) {
+  const { id } = useParams();
 
-  if (currentFilm.length > 0) {
-    const { title, videoLink } = currentFilm[0];
+  const videoPlayer = useRef(null);
+  const progressBarRef = useRef(null);
+  const togglerRef = useRef(null);
+
+  const [playerState, setPlayerState] = useState(true);
+  const [playerElapsedTime, setPlayerElapsedTime] = useState('00:00');
+  const [isLoaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    onFetchCurrentFilm(id);
+  }, [id, onFetchCurrentFilm]);
+
+  const handlePlayingToggleClick = () => {
+    setPlayerState((prev)=> !prev);
+    const video = videoPlayer.current;
+
+    if (video.paused) {
+      video.play();
+      video.muted = false;
+    } else {
+      video.pause();
+    }
+  };
+
+  const handlePlayerPauseClick = () => videoPlayer.current.pause();
+
+  const handleFullScreenClick = () => {
+    const video = videoPlayer.current;
+    video.fullscreen ? video.exitFullscreen() : video.requestFullscreen();
+  };
+
+  const handleMetadataLoaded = () => {
+    setTimeout(() => {
+      setLoaded(true);
+    }, 1000);
+  };
+
+  const updateProgressBar = () => {
+    const video = videoPlayer.current;
+    const videoCurrentTime = videoPlayer.current.currentTime;
+    const videoDuration = videoPlayer.current.duration;
+
+    progressBarRef.current.value = video ? ((videoCurrentTime / videoDuration) * 100) : 0;
+    togglerRef.current.style.left = `${video ? ((videoCurrentTime / videoDuration) * 100) : 0}%`;
+
+    setPlayerElapsedTime(getTimeVideo(videoDuration, videoCurrentTime));
+  };
+
+  if (currentFilm) {
+    const { title, videoLink, backgroundImage } = currentFilm;
 
     return (
       <div className="player">
+        {!isLoaded && <Spinner />}
         <video
           className="player__video"
-          poster="img/player-poster.jpg"
+          poster={backgroundImage}
+          ref={videoPlayer}
           src={videoLink}
+          onLoadedData={handleMetadataLoaded}
+          onTimeUpdate={updateProgressBar}
           autoPlay
           muted
         />
-
-        <button type="button" className="player__exit">Exit</button>
-
+        <Link to={APP_ROUTES.ROOT}>
+          <button
+            type="button"
+            className="player__exit"
+            onClick = {handlePlayerPauseClick}
+          >
+            Exit
+          </button>
+        </Link>
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value="30" max="100" />
-              <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+              <progress
+                className="player__progress"
+                ref={progressBarRef} value="30"
+                max="100"
+              />
+              <div
+                className="player__toggler"
+                ref={togglerRef}
+              >
+                Toggler
+              </div>
             </div>
-            <div className="player__time-value">1:30:29</div>
+            <div className="player__time-value">{playerElapsedTime}</div>
           </div>
 
           <div className="player__controls-row">
-            <button type="button" className="player__play">
+            <button type="button" className="player__play" onClick={handlePlayingToggleClick}>
               <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s" />
+                {!playerState ? <use xlinkHref="#play-s"></use> : <use xlinkHref="#pause"></use>}
               </svg>
-              <span>Play</span>
+              <span>{!playerState ? 'Play' : 'Pause'}</span>
             </button>
             <div className="player__name">{title}</div>
 
-            <button type="button" className="player__full-screen">
+            <button type="button" className="player__full-screen" onClick={handleFullScreenClick}>
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen" />
               </svg>
@@ -52,15 +126,24 @@ function PlayerPage({ currentFilm }) {
   return <NotFoundPage />;
 }
 
-const { string, arrayOf, shape } = PropTypes;
-
 PlayerPage.propTypes = {
-  currentFilm: arrayOf(
-    shape({
-      name: string.isRequired,
-      videoLink: string.isRequired,
-    }).isRequired,
-  ),
+  currentFilm: shape({
+    name: string.isRequired,
+    videoLink: string.isRequired,
+    backgroundImage: string.isRequired,
+  }),
+  onFetchCurrentFilm: func.isRequired,
 };
 
-export default PlayerPage;
+const mapStateToProps = ({ filmsReducer }) => ({
+  currentFilm: filmsReducer.currentFilm,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchCurrentFilm(id) {
+    dispatch(fetchCurrentFilm(id));
+  },
+});
+
+export { PlayerPage };
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerPage);

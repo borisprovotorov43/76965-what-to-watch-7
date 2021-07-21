@@ -16,6 +16,7 @@ export const API_ROUTES = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   COMMENTS: '/comments',
+  FAVORITE: '/favorite',
 };
 
 export const TAB_DEFAULT = 'Overview';

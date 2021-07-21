@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { bool, oneOf } from 'prop-types';
 import { Route, Switch, Router as BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { filmPropTypes } from '../../prop-types/film';
 import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../const';
-
-import { getCurrentFilm, isCheckoutAuth } from '../../utils';
+import { isCheckoutAuth } from '../../utils';
 
 import MainPage from '../pages/main-page/main-page';
 import SignInPage from '../pages/sign-in-page/sign-in-page';
@@ -21,7 +19,7 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 import browserHistory from '../../browser-history';
 import { getFilmsByGenreSelector } from '../../store/selectors';
 
-function App({ films, mylist, authorizationStatus, isDataLoaded }) {
+function App({ authorizationStatus, isDataLoaded }) {
 
   if (!isDataLoaded) {
     return <Spinner />;
@@ -40,7 +38,7 @@ function App({ films, mylist, authorizationStatus, isDataLoaded }) {
           path={APP_ROUTES.MY_LIST}
           exact
           render={
-            () => <MyListPage films={mylist} />
+            () => <MyListPage />
           }
         >
         </PrivateRoute>
@@ -60,14 +58,7 @@ function App({ films, mylist, authorizationStatus, isDataLoaded }) {
         <Route
           path={APP_ROUTES.DEV_PLAYER}
           exact
-          render={({ match: { params: { id } } }) => {
-            const currentFilm = getCurrentFilm(films, id);
-            return (
-              <PlayerPage
-                currentFilm={currentFilm}
-              />
-            );
-          }}
+          component={PlayerPage}
         />
         <Route>
           <NotFoundPage />
@@ -77,17 +68,7 @@ function App({ films, mylist, authorizationStatus, isDataLoaded }) {
   );
 }
 
-const { string, number, bool, shape, arrayOf, oneOf } = PropTypes;
-
 App.propTypes = {
-  films: arrayOf(filmPropTypes),
-  mylist: arrayOf(
-    shape({
-      id: number.isRequired,
-      title: string.isRequired,
-      image: string.isRequired,
-    }),
-  ).isRequired,
   authorizationStatus: oneOf(Object.values(AUTHORIZATION_STATUS)),
   isDataLoaded: bool.isRequired,
 };

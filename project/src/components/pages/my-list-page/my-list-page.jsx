@@ -1,11 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { string, number, arrayOf, shape, func } from 'prop-types';
 import Logo from '../../logo/logo';
 import PageFooter from '../../page-footer/page-footer';
 import FilmList from '../../film-list/film-list';
 import UserBlock from '../../user-block/user-block';
+import { connect } from 'react-redux';
+import { fetchFavoriteFilms } from '../../../store/api-actions';
 
-function MyListPage({ films }) {
+function MyListPage({ favoriteFilms, onFetchSimilarFilms }) {
+
+  useEffect(() => {
+    onFetchSimilarFilms();
+  }, [onFetchSimilarFilms]);
+
   return (
     <div className="user-page">
 
@@ -17,7 +24,7 @@ function MyListPage({ films }) {
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmList films={films} />
+        <FilmList films={favoriteFilms} />
       </section>
 
       <PageFooter />
@@ -25,16 +32,26 @@ function MyListPage({ films }) {
   );
 }
 
-const { string, number, arrayOf, shape } = PropTypes;
-
 MyListPage.propTypes = {
-  films: arrayOf(
+  favoriteFilms: arrayOf(
     shape({
       id: number,
       name: string,
       posterImage: string,
     }),
   ).isRequired,
+  onFetchSimilarFilms: func,
 };
 
-export default MyListPage;
+const mapStateToProps = ({ filmsReducer, loginReducer }) => ({
+  favoriteFilms: filmsReducer.favoriteFilms,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchSimilarFilms() {
+    dispatch(fetchFavoriteFilms());
+  },
+});
+
+export { MyListPage };
+export default connect(mapStateToProps, mapDispatchToProps)(MyListPage);

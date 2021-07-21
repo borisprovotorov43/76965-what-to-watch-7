@@ -1,13 +1,13 @@
 import React, { memo, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-function VideoPlayer({ source }) {
+function SmallVideoPlayer({ source }) {
   const videoPlayer = useRef(null);
 
   if (source) {
     setTimeout(() => {
       const video = videoPlayer.current;
-      video && videoPlayer.current.play();
+      video && video.play();
     }, 1000);
   }
 
@@ -24,8 +24,8 @@ function VideoPlayer({ source }) {
 
 const { string } = PropTypes;
 
-VideoPlayer.propTypes = {
+SmallVideoPlayer.propTypes = {
   source: string.isRequired,
 };
 
-export default memo(VideoPlayer);
+export default memo(SmallVideoPlayer);
