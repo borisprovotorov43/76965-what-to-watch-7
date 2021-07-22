@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Борис Провоторов](https://up.htmlacademy.ru/react/7/user/76965).
-* Наставник: [Алексей Белявский](https://htmlacademy.ru/profile/id666435).
+* Наставник: [Константин Антонов](https://htmlacademy.ru/profile/rawle51).
 
 ---
 
