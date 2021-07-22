@@ -54,3 +54,12 @@ export function getReviewDate(date) {
     });
 }
 
+export const getTimeVideo = (duration, currentTime) => {
+  const elapsedTime = Math.floor(duration - currentTime);
+
+  const hours = Math.floor(elapsedTime / 60 / 60);
+  const minutes = Math.floor(elapsedTime / 60) - (hours * 60);
+  const seconds = elapsedTime % 60;
+
+  return elapsedTime > 3600 ? `${hours}:${minutes}:${seconds}`: `${minutes}:${seconds}`;
+};

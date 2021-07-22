@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { MYLIST } from '../src/mocks/mylist';
 import { AUTHORIZATION_STATUS } from './const';
 
 import { filmsReducer } from './store/reducers/films-reducer';
@@ -18,6 +17,7 @@ import { createAPI } from '../src/services/api';
 import { redirect } from './store/middlewares/redirect';
 
 import { fetchPromoFilm, fetchFilms, checkAuth } from './store/api-actions';
+
 import App from './components/app/app';
 
 const api = createAPI(
@@ -41,12 +41,10 @@ store.dispatch(fetchPromoFilm());
 store.dispatch(fetchFilms());
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <Provider store={store}>
-      <App
-        mylist={MYLIST}
-      />
+      <App />
     </Provider>
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root'),
 );

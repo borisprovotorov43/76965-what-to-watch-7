@@ -1,5 +1,6 @@
 import {
   loadFilms,
+  loadFavoriteFilms,
   loadSimilarFilms,
   loadCurrentFilm,
   loadFilmComments,
@@ -28,6 +29,15 @@ export const fetchFilms = () => (dispatch, _getState, api) => (
     })))
 );
 
+export const fetchFavoriteFilms = () => (dispatch, _getState, api) => (
+  api.get(API_ROUTES.FAVORITE)
+    .then(({ data }) => {
+      dispatch(loadFavoriteFilms({
+        payload: data,
+      }));
+    })
+);
+
 export const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
   api.get(`${API_ROUTES.FILMS}/${id}`)
     .then(({ data }) => dispatch(loadCurrentFilm({
@@ -45,6 +55,13 @@ export const fetchCommentsFilm = (id) => (dispatch, _getState, api) => (
     })))
 );
 
+export const fetchSimilarFilms = (id) => (dispatch, _getState, api) => (
+  api.get(`${API_ROUTES.FILMS}/${id}${API_ROUTES.FILMS_SIMILAR}`)
+    .then(({ data }) => dispatch(loadSimilarFilms({
+      payload: data,
+    })))
+);
+
 export const postComment = (id, comment) => (dispatch, _getState, api) => {
   api.post(`${API_ROUTES.COMMENTS}/${id}`, comment)
     .then(({ data }) =>  dispatch(addComment({
@@ -56,16 +73,36 @@ export const postComment = (id, comment) => (dispatch, _getState, api) => {
     })));
 };
 
-export const fetchSimilarFilms = (id) => (dispatch, _getState, api) => (
-  api.get(`${API_ROUTES.FILMS}/${id}${API_ROUTES.FILMS_SIMILAR}`)
-    .then(({ data }) => dispatch(loadSimilarFilms({
-      payload: data,
-    })))
+export const postFavoriteFilm = (id, status, isPromoFilm) => (dispatch, _getState, api) => (
+  api.post(`${API_ROUTES.FAVORITE}/${id}/${status}`,
+    null,
+    {
+      headers: {
+        'x-token': localStorage.getItem('token'),
+      },
+    },
+  )
+    .then(({ data }) => {
+      if (isPromoFilm) {
+        dispatch(loadPromoFilm({
+          payload: data,
+        }));
+      } else {
+        dispatch(loadCurrentFilm({
+          payload: data,
+        }));
+      }
+    })
+    .catch(() => {})
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => {
   api.get(API_ROUTES.LOGIN)
-    .then(() => dispatch(requireAuthorization(AUTHORIZATION_STATUS.AUTH)))
+    .then(({ data }) => {
+      dispatch(requireAuthorization(AUTHORIZATION_STATUS.AUTH));
+      const userData = camelize(data);
+      dispatch(login({ login: userData.email, avatarUrl: userData.avatarUrl }));
+    })
     .catch(() => {});
 };
 

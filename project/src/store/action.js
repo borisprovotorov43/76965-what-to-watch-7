@@ -2,6 +2,7 @@ export const ActionType = {
   CHANGE_GENRE: 'CHANGE_GENRE',
   LOAD_PROMO_FILMS: 'LOAD_PROMO_FILMS',
   LOAD_FILMS: 'LOAD_FILMS',
+  LOAD_FAVORITE_FILMS: 'LOAD_FAVORITE_FILMS',
   LOAD_SIMILAR_FILMS: 'LOAD_SIMILAR_FILMS',
   LOAD_CURRENT_FILM: 'LOAD_CURRENT_FILM',
   LOAD_FILM_COMMENTS: 'LOAD_FILM_COMMENTS',
@@ -29,6 +30,13 @@ export function loadPromoFilm (action) {
 export function loadFilms (action) {
   return {
     type: ActionType.LOAD_FILMS,
+    payload: action.payload,
+  };
+}
+
+export function loadFavoriteFilms (action) {
+  return {
+    type: ActionType.LOAD_FAVORITE_FILMS,
     payload: action.payload,
   };
 }

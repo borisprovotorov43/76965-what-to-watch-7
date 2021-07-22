@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string, number } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -9,13 +9,14 @@ import Tabs from '../../tabs/tabs';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../../const';
-import { fetchSimilarFilms, fetchCurrentFilm } from '../../../store/api-actions';
+import { fetchSimilarFilms, fetchCurrentFilm, postFavoriteFilm } from '../../../store/api-actions';
 
 function FilmPage({
   currentFilm,
   similarFilms,
   onFetchSimilarFilms,
   onFetchCurrentFilm,
+  onPostFavoriteFilm,
   authorizationStatus,
 }) {
   const { id } = useParams();
@@ -25,6 +26,15 @@ function FilmPage({
     onFetchCurrentFilm(id);
   }, [id, onFetchCurrentFilm, onFetchSimilarFilms]);
 
+  const handleFavoriteClick = useCallback(
+    () => {
+      const { isFavorite } = currentFilm;
+      const statusFilm = isFavorite ? 0 : 1;
+      onPostFavoriteFilm(id, statusFilm, false);
+    },
+    [currentFilm, id, onPostFavoriteFilm],
+  );
+
   if (currentFilm) {
     const {
       name,
@@ -32,6 +42,7 @@ function FilmPage({
       posterImage,
       released,
       genre,
+      isFavorite,
     } = currentFilm;
 
     return (
@@ -54,15 +65,15 @@ function FilmPage({
                 </p>
 
                 <div className="film-card__buttons">
-                  <button className="btn btn--play film-card__button" type="button">
+                  <Link className="btn btn--play film-card__button" to={`/player/${id}`}>
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s" />
                     </svg>
                     <span>Play</span>
-                  </button>
-                  <button className="btn btn--list film-card__button" type="button">
+                  </Link>
+                  <button className="btn btn--list film-card__button" type="button" onClick={handleFavoriteClick}>
                     <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add" />
+                      {isFavorite ? <use xlinkHref="#in-list" /> : <use xlinkHref="#add" />}
                     </svg>
                     <span>My list</span>
                   </button>
@@ -99,6 +110,7 @@ FilmPage.propTypes = {
   similarFilms: array.isRequired,
   onFetchSimilarFilms: func.isRequired,
   onFetchCurrentFilm: func.isRequired,
+  onPostFavoriteFilm: func.isRequired,
   currentFilm: shape({
     name: string.isRequired,
     backgroundImage: string.isRequired,
@@ -121,6 +133,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onFetchCurrentFilm(id) {
     dispatch(fetchCurrentFilm(id));
+  },
+  onPostFavoriteFilm(id, status, isPromoFilm) {
+    dispatch(postFavoriteFilm(id, status, isPromoFilm));
   },
 });
 
