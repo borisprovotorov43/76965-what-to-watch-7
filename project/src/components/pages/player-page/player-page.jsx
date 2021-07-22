@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { string, shape, func } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -23,41 +23,53 @@ function PlayerPage({ currentFilm, onFetchCurrentFilm }) {
     onFetchCurrentFilm(id);
   }, [id, onFetchCurrentFilm]);
 
-  const handlePlayingToggleClick = () => {
-    setPlayerState((prev)=> !prev);
-    const video = videoPlayer.current;
+  const handlePlayingToggleClick = useCallback(
+    () => {
+      setPlayerState((prev)=> !prev);
+      const video = videoPlayer.current;
 
-    if (video.paused) {
-      video.play();
-      video.muted = false;
-    } else {
-      video.pause();
-    }
-  };
+      if (video.paused) {
+        video.play();
+        video.muted = false;
+      } else {
+        video.pause();
+      }
+    },
+    [],
+  );
 
-  const handlePlayerPauseClick = () => videoPlayer.current.pause();
+  const handlePlayerPauseClick = useCallback(
+    () => videoPlayer.current.pause(),[],
+  );
 
-  const handleFullScreenClick = () => {
-    const video = videoPlayer.current;
-    video.fullscreen ? video.exitFullscreen() : video.requestFullscreen();
-  };
+  const handleFullScreenClick = useCallback(
+    () => {
+      const video = videoPlayer.current;
+      video.fullscreen ? video.exitFullscreen() : video.requestFullscreen();
+    },
+    [],
+  );
 
-  const handleMetadataLoaded = () => {
-    setTimeout(() => {
-      setLoaded(true);
-    }, 1000);
-  };
+  const handleMetadataLoaded = useCallback(
+    () => {
+      setTimeout(() => {
+        setLoaded(true);
+      }, 1000);
+    },
+    [],
+  );
 
-  const updateProgressBar = () => {
-    const video = videoPlayer.current;
-    const videoCurrentTime = videoPlayer.current.currentTime;
-    const videoDuration = videoPlayer.current.duration;
-
-    progressBarRef.current.value = video ? ((videoCurrentTime / videoDuration) * 100) : 0;
-    togglerRef.current.style.left = `${video ? ((videoCurrentTime / videoDuration) * 100) : 0}%`;
-
-    setPlayerElapsedTime(getTimeVideo(videoDuration, videoCurrentTime));
-  };
+  const updateProgressBar = useCallback(
+    () => {
+      const video = videoPlayer.current;
+      const videoCurrentTime = videoPlayer.current.currentTime;
+      const videoDuration = videoPlayer.current.duration;
+      progressBarRef.current.value = video ? ((videoCurrentTime / videoDuration) * 100) : 0;
+      togglerRef.current.style.left = `${video ? ((videoCurrentTime / videoDuration) * 100) : 0}%`;
+      setPlayerElapsedTime(getTimeVideo(videoDuration, videoCurrentTime));
+    },
+    [],
+  );
 
   if (currentFilm) {
     const { title, videoLink, backgroundImage } = currentFilm;

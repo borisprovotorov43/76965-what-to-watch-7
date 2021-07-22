@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { arrayOf, func } from 'prop-types';
 import { filmPropTypes } from '../../../prop-types/film';
 import { promofilmPropTypes } from '../../../prop-types/promoFilm';
@@ -15,12 +15,15 @@ import { postFavoriteFilm } from '../../../store/api-actions';
 
 function MainPage({ films, promoFilm, onPostFavoriteFilm }) {
 
-  const handleFavoriteClick = () => {
-    const { id, isFavorite } = promoFilm;
+  const handleFavoriteClick = useCallback(
+    () => {
+      const { id, isFavorite } = promoFilm;
 
-    const statusFilm = isFavorite ? 0 : 1;
-    onPostFavoriteFilm(id, statusFilm, true);
-  };
+      const statusFilm = isFavorite ? 0 : 1;
+      onPostFavoriteFilm(id, statusFilm, true);
+    },
+    [onPostFavoriteFilm, promoFilm],
+  );
 
   return (
     <>

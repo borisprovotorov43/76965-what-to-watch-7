@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string, number } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -26,11 +26,14 @@ function FilmPage({
     onFetchCurrentFilm(id);
   }, [id, onFetchCurrentFilm, onFetchSimilarFilms]);
 
-  const handleFavoriteClick = () => {
-    const { isFavorite } = currentFilm;
-    const statusFilm = isFavorite ? 0 : 1;
-    onPostFavoriteFilm(id, statusFilm, false);
-  };
+  const handleFavoriteClick = useCallback(
+    () => {
+      const { isFavorite } = currentFilm;
+      const statusFilm = isFavorite ? 0 : 1;
+      onPostFavoriteFilm(id, statusFilm, false);
+    },
+    [currentFilm, id, onPostFavoriteFilm],
+  );
 
   if (currentFilm) {
     const {
