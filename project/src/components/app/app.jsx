@@ -28,9 +28,11 @@ function App({ authorizationStatus, isDataLoaded }) {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route path={APP_ROUTES.ROOT} exact>
-          <MainPage />
-        </Route>
+        <Route
+          path={APP_ROUTES.ROOT}
+          exact
+          component={MainPage}
+        />
         <Route path={APP_ROUTES.LOGIN} exact>
           <SignInPage authorizationStatus={authorizationStatus} />
         </Route>
@@ -60,9 +62,7 @@ function App({ authorizationStatus, isDataLoaded }) {
           exact
           component={PlayerPage}
         />
-        <Route>
-          <NotFoundPage />
-        </Route>
+        <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
   );
