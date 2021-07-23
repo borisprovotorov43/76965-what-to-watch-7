@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, oneOf } from 'prop-types';
+import { bool, oneOf, string } from 'prop-types';
 import { Route, Switch, Router as BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -18,69 +18,76 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import browserHistory from '../../browser-history';
 import { getFilmsByGenreSelector } from '../../store/selectors';
+import Notifycation from '../notifycation/notifycation';
 
-function App({ authorizationStatus, isDataLoaded }) {
+function App({ authorizationStatus, isDataLoaded, notifycation }) {
 
   if (!isDataLoaded) {
     return <Spinner />;
   }
 
   return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route
-          path={AppRoutes.ROOT}
-          exact
-          component={MainPage}
-        />
-        <Route path={AppRoutes.LOGIN} exact>
-          <SignInPage authorizationStatus={authorizationStatus} />
-        </Route>
-        <PrivateRoute
-          path={AppRoutes.MY_LIST}
-          exact
-          render={
-            () => <MyListPage />
-          }
-        >
-        </PrivateRoute>
-        <Route
-          path={AppRoutes.DEV_FILM}
-          exact
-          component={FilmPage}
-        />
-        <PrivateRoute
-          path={AppRoutes.DEV_ADD_REVIEW}
-          exact
-          render={
-            () => <AddReviewPage />
-          }
-        >
-        </PrivateRoute>
-        <Route
-          path={AppRoutes.DEV_PLAYER}
-          exact
-          component={PlayerPage}
-        />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </BrowserRouter>
+    <>
+      <BrowserRouter history={browserHistory}>
+        <Switch>
+          <Route
+            path={AppRoutes.ROOT}
+            exact
+            component={MainPage}
+          />
+          <Route path={AppRoutes.LOGIN} exact>
+            <SignInPage authorizationStatus={authorizationStatus} />
+          </Route>
+          <PrivateRoute
+            path={AppRoutes.MY_LIST}
+            exact
+            render={
+              () => <MyListPage />
+            }
+          >
+          </PrivateRoute>
+          <Route
+            path={AppRoutes.DEV_FILM}
+            exact
+            component={FilmPage}
+          />
+          <PrivateRoute
+            path={AppRoutes.DEV_ADD_REVIEW}
+            exact
+            render={
+              () => <AddReviewPage />
+            }
+          >
+          </PrivateRoute>
+          <Route
+            path={AppRoutes.DEV_PLAYER}
+            exact
+            component={PlayerPage}
+          />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </BrowserRouter>
+      {notifycation !== '' && <Notifycation notifycation={notifycation} />}
+    </>
   );
 }
 
 App.propTypes = {
   authorizationStatus: oneOf(Object.values(AuthorizationStatus)),
   isDataLoaded: bool.isRequired,
+  notifycation: string.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const isAuth =  state.loginReducer.authorizationStatus;
   const films = getFilmsByGenreSelector(state);
+  const notifycation = state.notifycationReducer.message;
 
   return {
     films: films,
     authorizationStatus: isAuth,
     isDataLoaded: !(isCheckoutAuth(isAuth) || films.length === 0),
+    notifycation: notifycation,
   };
 };
 

@@ -10,6 +10,7 @@ import { AuthorizationStatus } from './const';
 import { filmsReducer } from './store/reducers/films-reducer';
 import { reviewsReducer } from './store/reducers/reviews-reducer';
 import { loginReducer } from './store/reducers/login-reducer';
+import { notifycationReducer } from './store/reducers/notifycation-reducer';
 
 import { requireAuthorization } from './store/action';
 
@@ -19,7 +20,6 @@ import { redirect } from './store/middlewares/redirect';
 import { fetchPromoFilm, fetchFilms, checkAuth } from './store/api-actions';
 
 import App from './components/app/app';
-import NotifyError from './components/notify-error/notify-error';
 
 const api = createAPI(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
@@ -30,6 +30,7 @@ const store = createStore(
     filmsReducer,
     reviewsReducer,
     loginReducer,
+    notifycationReducer,
   }),
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
@@ -45,7 +46,6 @@ ReactDOM.render(
   <div>
     <Provider store={store}>
       <App />
-      <NotifyError />
     </Provider>
   </div>,
   document.getElementById('root'),

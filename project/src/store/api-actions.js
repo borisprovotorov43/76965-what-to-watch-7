@@ -9,11 +9,12 @@ import {
   requireAuthorization,
   redirectToRoute,
   login,
-  logout
+  logout,
+  showNotification,
+  resetNotification
 } from './action';
 
 import { AppRoutes, ApiRoutes, AuthorizationStatus } from '../const';
-import { toast } from 'react-toastify';
 import camelize from 'camelize';
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => (
@@ -36,6 +37,10 @@ export const fetchFavoriteFilms = () => (dispatch, _getState, api) => (
       dispatch(loadFavoriteFilms({
         payload: data,
       }));
+    })
+    .catch((err) => {
+      dispatch(resetNotification());
+      dispatch(showNotification(err.message));
     })
 );
 
@@ -94,7 +99,10 @@ export const postFavoriteFilm = (id, status, isPromoFilm) => (dispatch, _getStat
         }));
       }
     })
-    .catch((err) => toast.error(err.message))
+    .catch((err) => {
+      dispatch(resetNotification());
+      dispatch(showNotification(err.message));
+    })
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => {
@@ -104,7 +112,10 @@ export const checkAuth = () => (dispatch, _getState, api) => {
       const userData = camelize(data);
       dispatch(login({ login: userData.email, avatarUrl: userData.avatarUrl }));
     })
-    .catch((err) => toast.error(err.message));
+    .catch((err) => {
+      dispatch(resetNotification());
+      dispatch(showNotification(err.message));
+    });
 };
 
 export const loginUser = ({ email, password }) => (dispatch, _getState, api) => {
@@ -116,11 +127,18 @@ export const loginUser = ({ email, password }) => (dispatch, _getState, api) => 
     })
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoutes.ROOT)))
-    .catch(() => {});
+    .catch((err) => {
+      dispatch(resetNotification());
+      dispatch(showNotification(err.message));
+    });
 };
 
 export const logoutUser = () => (dispatch, _getState, api) => {
   api.delete(ApiRoutes.LOGOUT)
     .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(logout()));
+    .then(() => dispatch(logout()))
+    .catch((err) => {
+      dispatch(resetNotification());
+      dispatch(showNotification(err.message));
+    });
 };

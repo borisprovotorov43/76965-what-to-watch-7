@@ -1,0 +1,55 @@
+.notify {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+
+  padding: 30px;
+  background-color: #d93e3e;
+  color: #ffffff;
+  opacity: 0;
+  animation-name: showNotify;
+  animation-duration: .4s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  transition: all .4s;
+  border-radius: 6px;
+}
+
+.notify__btn-close {
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.notify--hide {
+  opacity: 1;
+  animation-name: hideNotify;
+  animation-duration: .4s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  transition: all .4s;
+}
+
+@keyframes showNotify {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hideNotify {
+  0% {
+    opacity: 1;
+    transform: translate(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100%);
+  }
+}
