@@ -122,7 +122,7 @@ FilmPage.propTypes = {
 };
 
 const mapStateToProps = ({ filmsReducer, loginReducer }) => ({
-  similarFilms: filmsReducer.similarFilms,
+  similarFilms: filmsReducer.similarFilms.slice(0,4),
   currentFilm: filmsReducer.currentFilm,
   authorizationStatus: loginReducer.authorizationStatus,
 });

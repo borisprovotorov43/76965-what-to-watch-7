@@ -19,6 +19,7 @@ import { redirect } from './store/middlewares/redirect';
 import { fetchPromoFilm, fetchFilms, checkAuth } from './store/api-actions';
 
 import App from './components/app/app';
+import NotifyError from './components/notify-error/notify-error';
 
 const api = createAPI(
   () => store.dispatch(requireAuthorization(AUTHORIZATION_STATUS.NO_AUTH)),
@@ -44,6 +45,7 @@ ReactDOM.render(
   <div>
     <Provider store={store}>
       <App />
+      <NotifyError />
     </Provider>
   </div>,
   document.getElementById('root'),

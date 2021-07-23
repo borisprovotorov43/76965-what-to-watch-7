@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { string } from 'prop-types';
-import cx from 'classnames';
+import classnames from 'classnames';
 import { filmPropTypes } from '../../prop-types/film';
 
 import { TAB_DEFAULT, TABS_LIST } from '../../const';
@@ -36,7 +36,7 @@ function Tabs({ film, filmId }) {
         <ul className="film-nav__list">
           {TABS_LIST.map((tabName) => (
             <li
-              className={cx('film-nav__item', { 'film-nav__item--active': activeTab === tabName })}
+              className={classnames('film-nav__item', { 'film-nav__item--active': activeTab === tabName })}
               key={`tab-item-${tabName}`}
             >
               <a

@@ -13,6 +13,7 @@ import {
 } from './action';
 
 import { APP_ROUTES, API_ROUTES, AUTHORIZATION_STATUS } from '../const';
+import { toast } from 'react-toastify';
 import camelize from 'camelize';
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => (
@@ -93,7 +94,7 @@ export const postFavoriteFilm = (id, status, isPromoFilm) => (dispatch, _getStat
         }));
       }
     })
-    .catch(() => {})
+    .catch((err) => toast.error(err.message))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => {
@@ -103,7 +104,7 @@ export const checkAuth = () => (dispatch, _getState, api) => {
       const userData = camelize(data);
       dispatch(login({ login: userData.email, avatarUrl: userData.avatarUrl }));
     })
-    .catch(() => {});
+    .catch((err) => toast.error(err.message));
 };
 
 export const loginUser = ({ email, password }) => (dispatch, _getState, api) => {
