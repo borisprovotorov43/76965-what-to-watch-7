@@ -1,4 +1,4 @@
-export const APP_ROUTES = {
+export const AppRoutes = {
   ROOT: '/',
   LOGIN: '/login',
   MY_LIST: '/mylist',
@@ -9,7 +9,7 @@ export const APP_ROUTES = {
   DEV_PLAYER: '/player/:id',
 };
 
-export const API_ROUTES = {
+export const ApiRoutes = {
   FILM_PROMO: '/promo',
   FILMS: '/films',
   FILMS_SIMILAR: '/similar',
@@ -27,7 +27,7 @@ export const FILMS_PER_PAGE = 8;
 export const MAX_RAITING_VALUE = 10;
 export const DEFAULT_GENGE = 'All genres';
 
-export const AUTHORIZATION_STATUS = {
+export const AuthorizationStatus = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',

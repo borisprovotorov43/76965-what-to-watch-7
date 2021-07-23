@@ -1,8 +1,8 @@
 import { ActionType } from '../action';
-import { AUTHORIZATION_STATUS } from '../../const';
+import { AuthorizationStatus } from '../../const';
 
 const initialState = {
-  authorizationStatus: AUTHORIZATION_STATUS.UNKNOWN,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
   userData: {
     login: '',
     avatarUrl: '',
@@ -24,7 +24,7 @@ const loginReducer = (state = initialState, action) => {
     case ActionType.LOGOUT:
       return {
         ...state,
-        authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
     default:
       return state;

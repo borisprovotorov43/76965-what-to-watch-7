@@ -1,4 +1,4 @@
-import { AUTHORIZATION_STATUS } from './const';
+import { AuthorizationStatus } from './const';
 import { HttpCode } from './services/api';
 
 export function getRatingName(ratingNumber) {
@@ -41,7 +41,7 @@ export function getFilmsByGenre(films, currentGenre) {
 }
 
 export function isCheckoutAuth(authorizationStatus) {
-  return authorizationStatus === AUTHORIZATION_STATUS.UNKNOWN;
+  return authorizationStatus === AuthorizationStatus.UNKNOWN;
 }
 
 export function getReviewDate(date) {

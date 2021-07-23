@@ -5,23 +5,23 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../store/api-actions';
 
-import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../const';
+import { AppRoutes, AuthorizationStatus } from '../../const';
 
 function UserBlock({ authorizationStatus, signOut, userData: { login, avatarUrl} }) {
   return (
     <ul className="user-block">
-      {authorizationStatus === AUTHORIZATION_STATUS.AUTH ?
+      {authorizationStatus === AuthorizationStatus.AUTH ?
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <Link to={APP_ROUTES.MY_LIST} >
+              <Link to={AppRoutes.MY_LIST} >
                 <img src={avatarUrl} alt={login} width="63" height="63" />
               </Link>
             </div>
           </li>
           <li className="user-block__item">
             <Link
-              to={APP_ROUTES.LOGIN}
+              to={AppRoutes.LOGIN}
               className="user-block__link"
               onClick={(evt) => {
                 evt.preventDefault();
@@ -34,7 +34,7 @@ function UserBlock({ authorizationStatus, signOut, userData: { login, avatarUrl}
         </>
         :
         <li className="user-block__item">
-          <Link to={APP_ROUTES.LOGIN} className="user-block__link">Sign in</Link>
+          <Link to={AppRoutes.LOGIN} className="user-block__link">Sign in</Link>
         </li>}
     </ul>
   );

@@ -3,7 +3,7 @@ import { string, shape, func } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCurrentFilm } from '../../../store/api-actions';
-import { APP_ROUTES } from '../../../const';
+import { AppRoutes } from '../../../const';
 import { getTimeVideo } from '../../../utils';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Spinner from '../../spinner/spinner';
@@ -87,7 +87,7 @@ function PlayerPage({ currentFilm, onFetchCurrentFilm }) {
           autoPlay
           muted
         />
-        <Link to={APP_ROUTES.ROOT}>
+        <Link to={AppRoutes.ROOT}>
           <button
             type="button"
             className="player__exit"

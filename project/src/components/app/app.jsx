@@ -3,7 +3,7 @@ import { bool, oneOf } from 'prop-types';
 import { Route, Switch, Router as BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../const';
+import { AppRoutes, AuthorizationStatus } from '../../const';
 import { isCheckoutAuth } from '../../utils';
 
 import MainPage from '../pages/main-page/main-page';
@@ -29,15 +29,15 @@ function App({ authorizationStatus, isDataLoaded }) {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route
-          path={APP_ROUTES.ROOT}
+          path={AppRoutes.ROOT}
           exact
           component={MainPage}
         />
-        <Route path={APP_ROUTES.LOGIN} exact>
+        <Route path={AppRoutes.LOGIN} exact>
           <SignInPage authorizationStatus={authorizationStatus} />
         </Route>
         <PrivateRoute
-          path={APP_ROUTES.MY_LIST}
+          path={AppRoutes.MY_LIST}
           exact
           render={
             () => <MyListPage />
@@ -45,12 +45,12 @@ function App({ authorizationStatus, isDataLoaded }) {
         >
         </PrivateRoute>
         <Route
-          path={APP_ROUTES.DEV_FILM}
+          path={AppRoutes.DEV_FILM}
           exact
           component={FilmPage}
         />
         <PrivateRoute
-          path={APP_ROUTES.DEV_ADD_REVIEW}
+          path={AppRoutes.DEV_ADD_REVIEW}
           exact
           render={
             () => <AddReviewPage />
@@ -58,7 +58,7 @@ function App({ authorizationStatus, isDataLoaded }) {
         >
         </PrivateRoute>
         <Route
-          path={APP_ROUTES.DEV_PLAYER}
+          path={AppRoutes.DEV_PLAYER}
           exact
           component={PlayerPage}
         />
@@ -69,7 +69,7 @@ function App({ authorizationStatus, isDataLoaded }) {
 }
 
 App.propTypes = {
-  authorizationStatus: oneOf(Object.values(AUTHORIZATION_STATUS)),
+  authorizationStatus: oneOf(Object.values(AuthorizationStatus)),
   isDataLoaded: bool.isRequired,
 };
 

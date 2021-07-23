@@ -8,7 +8,7 @@ import FilmList from '../../film-list/film-list';
 import Tabs from '../../tabs/tabs';
 import NotFoundPage from '../not-found-page/not-found-page';
 
-import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../../const';
+import { AppRoutes, AuthorizationStatus } from '../../../const';
 import { fetchSimilarFilms, fetchCurrentFilm, postFavoriteFilm } from '../../../store/api-actions';
 
 function FilmPage({
@@ -77,7 +77,7 @@ function FilmPage({
                     </svg>
                     <span>My list</span>
                   </button>
-                  {authorizationStatus === AUTHORIZATION_STATUS.AUTH && <Link to={`${APP_ROUTES.FILMS}/${id}${APP_ROUTES.REVIEW}`} className="btn film-card__button">Add review</Link>}
+                  {authorizationStatus === AuthorizationStatus.AUTH && <Link to={`${AppRoutes.FILMS}/${id}${AppRoutes.REVIEW}`} className="btn film-card__button">Add review</Link>}
                 </div>
               </div>
             </div>

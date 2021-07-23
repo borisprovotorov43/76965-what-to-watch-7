@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { AUTHORIZATION_STATUS } from './const';
+import { AuthorizationStatus } from './const';
 
 import { filmsReducer } from './store/reducers/films-reducer';
 import { reviewsReducer } from './store/reducers/reviews-reducer';
@@ -22,7 +22,7 @@ import App from './components/app/app';
 import NotifyError from './components/notify-error/notify-error';
 
 const api = createAPI(
-  () => store.dispatch(requireAuthorization(AUTHORIZATION_STATUS.NO_AUTH)),
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
 );
 
 const store = createStore(

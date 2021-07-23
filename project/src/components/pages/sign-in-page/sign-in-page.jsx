@@ -3,7 +3,7 @@ import PropTypes, { string } from 'prop-types';
 import { connect } from 'react-redux';
 import { redirectToRoute } from '../../../store/action';
 import { loginUser } from '../../../store/api-actions';
-import { APP_ROUTES, AUTHORIZATION_STATUS } from '../../../const';
+import { AppRoutes, AuthorizationStatus } from '../../../const';
 
 import camelize from 'camelize';
 import cx from 'classnames';
@@ -23,7 +23,7 @@ function SignInPage({ authorizationStatus, onSubmit, onRedirectToRoute }) {
   const [isErrorPassword ,setErrorPassword] = useState(false);
 
   useEffect(()=> {
-    authorizationStatus === AUTHORIZATION_STATUS.AUTH && onRedirectToRoute(APP_ROUTES.ROOT);
+    authorizationStatus === AuthorizationStatus.AUTH && onRedirectToRoute(AppRoutes.ROOT);
   },[authorizationStatus, onRedirectToRoute]);
 
   function handleFieldChange (evt) {
