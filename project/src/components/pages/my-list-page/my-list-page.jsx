@@ -24,7 +24,7 @@ function MyListPage({ favoriteFilms, onFetchSimilarFilms }) {
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmList films={favoriteFilms} />
+        {favoriteFilms.length > 0 && <FilmList films={favoriteFilms} />}
       </section>
 
       <PageFooter />
@@ -43,7 +43,7 @@ MyListPage.propTypes = {
   onFetchSimilarFilms: func,
 };
 
-const mapStateToProps = ({ filmsReducer, loginReducer }) => ({
+const mapStateToProps = ({ filmsReducer }) => ({
   favoriteFilms: filmsReducer.favoriteFilms,
 });
 

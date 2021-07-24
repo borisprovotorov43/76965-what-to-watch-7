@@ -3,7 +3,7 @@ import { func, number, shape, string } from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCurrentFilm } from '../../../store/api-actions';
-import { APP_ROUTES } from '../../../const';
+import { AppRoutes } from '../../../const';
 
 import Logo from '../../logo/logo';
 import AddReviewsFrom from '../../add-review-form/add-reviews-form';
@@ -34,7 +34,7 @@ function AddReviewPage({ currentFilm, onFetchCurrentFilm }) {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={`${APP_ROUTES.FILMS}/${id}`} className="breadcrumbs__link">{name}</Link>
+                  <Link to={`${AppRoutes.FILMS}/${id}`} className="breadcrumbs__link">{name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>

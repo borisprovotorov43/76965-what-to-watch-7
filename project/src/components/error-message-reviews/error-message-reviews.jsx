@@ -1,19 +1,19 @@
 import React from 'react';
 import { number } from 'prop-types';
 import { getErrorMessageText } from '../../utils';
-import './error-message.css';
+import './error-message-reviews.css';
 
-function ErrorMessage({ errorCode }) {
+function ErrorMessageReviews({ errorCode }) {
   return (
-    <div className="error-message">
+    <div className="error-message-reviews">
       Error: {getErrorMessageText(errorCode)}
     </div>
   );
 }
 
-ErrorMessage.propTypes = {
+ErrorMessageReviews.propTypes = {
   errorCode: number.isRequired,
 };
 
-export default ErrorMessage;
+export default ErrorMessageReviews;
 

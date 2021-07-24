@@ -4,7 +4,7 @@ import { func, number, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { postComment } from '../../store/api-actions';
 import Rating from '../rating/rating';
-import ErrorMessage from '../error-message/error-message';
+import ErrorMessageReviews from '../error-message-reviews/error-message-reviews';
 
 function AddReviewsForm({
   filmId,
@@ -65,7 +65,7 @@ function AddReviewsForm({
             </button>
           </div>
         </div>
-        {errorCode && <ErrorMessage errorCode={errorCode} />}
+        {errorCode && <ErrorMessageReviews errorCode={errorCode} />}
       </form>
     </div>
   );

@@ -5,11 +5,12 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { AUTHORIZATION_STATUS } from './const';
+import { AuthorizationStatus } from './const';
 
 import { filmsReducer } from './store/reducers/films-reducer';
 import { reviewsReducer } from './store/reducers/reviews-reducer';
 import { loginReducer } from './store/reducers/login-reducer';
+import { notifycationReducer } from './store/reducers/notifycation-reducer';
 
 import { requireAuthorization } from './store/action';
 
@@ -21,7 +22,7 @@ import { fetchPromoFilm, fetchFilms, checkAuth } from './store/api-actions';
 import App from './components/app/app';
 
 const api = createAPI(
-  () => store.dispatch(requireAuthorization(AUTHORIZATION_STATUS.NO_AUTH)),
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
 );
 
 const store = createStore(
@@ -29,6 +30,7 @@ const store = createStore(
     filmsReducer,
     reviewsReducer,
     loginReducer,
+    notifycationReducer,
   }),
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),

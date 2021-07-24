@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes, { bool } from 'prop-types';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
-import { APP_ROUTES } from '../../const';
+import { AppRoutes } from '../../const';
 import SmallVideoPlayer from '../small-video-player/small-video-player';
 
 function SmallFilmCard({ id, name, previewImage, onActiveFilmSet, activeFilm, previewVideoLink }) {
@@ -21,7 +21,7 @@ function SmallFilmCard({ id, name, previewImage, onActiveFilmSet, activeFilm, pr
           : <SmallVideoPlayer source={previewVideoLink} />}
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`${APP_ROUTES.FILMS}/${id}`}>{name}</Link>
+        <Link className="small-film-card__link" to={`${AppRoutes.FILMS}/${id}`}>{name}</Link>
       </h3>
     </article>
   );
