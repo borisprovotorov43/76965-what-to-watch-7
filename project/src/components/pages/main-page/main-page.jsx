@@ -4,7 +4,7 @@ import { filmPropTypes } from '../../../prop-types/film';
 import { promofilmPropTypes } from '../../../prop-types/promoFilm';
 
 import { connect } from 'react-redux';
-import { DEFAULT_GENGE } from '../../../const';
+import { DEFAULT_GENRE } from '../../../const';
 
 import PageFooter from '../../page-footer/page-footer';
 import FilmCard from '../../film-card/film-card';
@@ -34,7 +34,7 @@ function MainPage({ films, promoFilm, onPostFavoriteFilm }) {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList defaultGenge={DEFAULT_GENGE} />
+          <GenreList defaultGenge={DEFAULT_GENRE} />
           <FilmList films={films} />
         </section>
         <PageFooter className="catalog__button" />

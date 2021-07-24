@@ -1,5 +1,5 @@
 import { ActionType } from '../action';
-import { DEFAULT_GENGE } from '../../const';
+import { DEFAULT_GENRE } from '../../const';
 import camelize from 'camelize';
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
   favoriteFilms: [],
   currentFilm: null,
   similarFilms: [],
-  currentGenre: DEFAULT_GENGE,
+  currentGenre: DEFAULT_GENRE,
 };
 
 const filmsReducer = (state = initialState, action) => {

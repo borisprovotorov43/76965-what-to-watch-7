@@ -1,5 +1,6 @@
 import React, { memo, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { VIDEO_PLAY_DELAY } from '../../const';
 
 function SmallVideoPlayer({ source }) {
   const videoPlayer = useRef(null);
@@ -8,7 +9,7 @@ function SmallVideoPlayer({ source }) {
     setTimeout(() => {
       const video = videoPlayer.current;
       video && video.play();
-    }, 1000);
+    }, VIDEO_PLAY_DELAY);
   }
 
   return (

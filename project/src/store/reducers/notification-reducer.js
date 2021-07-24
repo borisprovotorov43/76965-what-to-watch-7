@@ -4,14 +4,14 @@ const initialState = {
   message: '',
 };
 
-const notifycationReducer = (state = initialState, action) => {
+const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.SHOW_NOTIFYCATION:
+    case ActionType.SHOW_NOTIFICATION:
       return {
         ...state,
         message: action.payload,
       };
-    case ActionType.RESET_NOTIFYCATION:
+    case ActionType.RESET_NOTIFICATION:
       return {
         ...state,
         message: '',
@@ -21,4 +21,4 @@ const notifycationReducer = (state = initialState, action) => {
   }
 };
 
-export { notifycationReducer };
+export { notificationReducer };

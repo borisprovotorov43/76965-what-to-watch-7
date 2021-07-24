@@ -32,10 +32,6 @@ export function getFormatedFilmRunTime(runTime) {
   return `${hour}h ${minute}m`;
 }
 
-export function getCurrentFilm(films, id) {
-  return films.filter((item) => item.id === +id && item);
-}
-
 export function getFilmsByGenre(films, currentGenre) {
   return films.filter((item) => item.genre === currentGenre);
 }

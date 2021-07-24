@@ -10,7 +10,7 @@ import { AuthorizationStatus } from './const';
 import { filmsReducer } from './store/reducers/films-reducer';
 import { reviewsReducer } from './store/reducers/reviews-reducer';
 import { loginReducer } from './store/reducers/login-reducer';
-import { notifycationReducer } from './store/reducers/notifycation-reducer';
+import { notificationReducer } from './store/reducers/notification-reducer';
 
 import { requireAuthorization } from './store/action';
 
@@ -30,7 +30,7 @@ const store = createStore(
     filmsReducer,
     reviewsReducer,
     loginReducer,
-    notifycationReducer,
+    notificationReducer,
   }),
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),

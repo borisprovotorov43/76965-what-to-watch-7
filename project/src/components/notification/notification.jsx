@@ -3,9 +3,9 @@ import { func, string } from 'prop-types';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { resetNotification } from '../../store/action';
-import './notifycation.css';
+import './notification.css';
 
-function Notifycation({ notifycation, onResetNotification }) {
+function Notification({ notification, onResetNotification }) {
   const [isHideNotify, setHideNotify] = useState(false);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function Notifycation({ notifycation, onResetNotification }) {
     setTimeout(()=>{
       setHideNotify(true);
     }, 2000);
-  },[notifycation, onResetNotification]);
+  },[notification, onResetNotification]);
 
   const handleCloseNotifyClick = () => {
     setHideNotify(true);
@@ -27,13 +27,13 @@ function Notifycation({ notifycation, onResetNotification }) {
           <use xlinkHref="#close"></use>
         </svg>
       </button>
-      {notifycation}
+      {notification}
     </div>
   );
 }
 
-Notifycation.propTypes = {
-  notifycation: string.isRequired,
+Notification.propTypes = {
+  notification: string.isRequired,
   onResetNotification: func.isRequired,
 };
 
@@ -43,5 +43,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export { Notifycation };
-export default connect(null, mapDispatchToProps)(Notifycation);
+export { Notification };
+export default connect(null, mapDispatchToProps)(Notification);

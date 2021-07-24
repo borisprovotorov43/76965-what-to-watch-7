@@ -18,9 +18,9 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 
 import browserHistory from '../../browser-history';
 import { getFilmsByGenreSelector } from '../../store/selectors';
-import Notifycation from '../notifycation/notifycation';
+import Notification from '../notification/notification';
 
-function App({ authorizationStatus, isDataLoaded, notifycation }) {
+function App({ authorizationStatus, isDataLoaded, notification }) {
 
   if (!isDataLoaded) {
     return <Spinner />;
@@ -67,7 +67,7 @@ function App({ authorizationStatus, isDataLoaded, notifycation }) {
           <Route component={NotFoundPage} />
         </Switch>
       </BrowserRouter>
-      {notifycation !== '' && <Notifycation notifycation={notifycation} />}
+      {notification !== '' && <Notification notification={notification} />}
     </>
   );
 }
@@ -75,19 +75,19 @@ function App({ authorizationStatus, isDataLoaded, notifycation }) {
 App.propTypes = {
   authorizationStatus: oneOf(Object.values(AuthorizationStatus)),
   isDataLoaded: bool.isRequired,
-  notifycation: string.isRequired,
+  notification: string.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const isAuth =  state.loginReducer.authorizationStatus;
   const films = getFilmsByGenreSelector(state);
-  const notifycation = state.notifycationReducer.message;
+  const notification = state.notificationReducer.message;
 
   return {
     films: films,
     authorizationStatus: isAuth,
     isDataLoaded: !(isCheckoutAuth(isAuth) || films.length === 0),
-    notifycation: notifycation,
+    notification: notification,
   };
 };
 

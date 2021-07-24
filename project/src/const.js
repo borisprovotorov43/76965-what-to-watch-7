@@ -21,11 +21,12 @@ export const ApiRoutes = {
 
 export const TAB_DEFAULT = 'Overview';
 export const TABS_LIST = ['Overview', 'Details', 'Reviews'];
+export const VIDEO_PLAY_DELAY = 1;
 
-export const RAITING_DEFAULT = 8;
+export const RATING_DEFAULT = 8;
 export const FILMS_PER_PAGE = 8;
-export const MAX_RAITING_VALUE = 10;
-export const DEFAULT_GENGE = 'All genres';
+export const MAX_RATING_VALUE = 10;
+export const DEFAULT_GENRE = 'All genres';
 
 export const AuthorizationStatus = {
   AUTH: 'AUTH',

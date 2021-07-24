@@ -11,8 +11,8 @@ export const ActionType = {
   LOGOUT: 'LOGOUT',
   REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
-  SHOW_NOTIFYCATION: 'SHOW_NOTIFYCATION',
-  RESET_NOTIFYCATION: 'RESET_NOTIFYCATION',
+  SHOW_NOTIFICATION: 'SHOW_NOTIFICATION',
+  RESET_NOTIFICATION: 'RESET_NOTIFICATION',
 };
 
 export function changeGenre (action) {
@@ -100,14 +100,14 @@ export function redirectToRoute (url) {
 
 export function showNotification (action) {
   return {
-    type: ActionType.SHOW_NOTIFYCATION,
+    type: ActionType.SHOW_NOTIFICATION,
     payload: action,
   };
 }
 
 export function resetNotification (action) {
   return {
-    type: ActionType.RESET_NOTIFYCATION,
+    type: ActionType.RESET_NOTIFICATION,
     payload: action,
   };
 }
